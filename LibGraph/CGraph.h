@@ -7,8 +7,7 @@
 
 class CGraph : public CGraphOrient
 {
+
 };
-
-
 
 #endif

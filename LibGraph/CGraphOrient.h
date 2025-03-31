@@ -6,8 +6,7 @@
  ************************************************************************************************
  *
  * ROLE : Interface de la classe CGraphOrient
- *        Cette classe permet de manipuler un graphe orienté
- *		  Elle permet d'effectuer des opérations de base sur un graphe orienté
+ *		  Elle permet d'effectuer des opérations de base sur un graphe orienté ainsi que sur ses arcs et sommets.
  *
  ************************************************************************************************
  * VERSION : 0.0.2
@@ -47,7 +46,8 @@ public :
 	 * Sortie : Rien
 	 * Entraîne : L'arc spécifié est ajouté dans le graphe OU
 	 * (EXCEPTION): arc déjà existant OU
-	 * (EXCEPTION): le sommet de départ  ou d'arrivée n'existe pas
+	 * (EXCEPTION): le sommet de départ n'existe pas OU 
+	 * (EXCEPTION): le sommet d'arrivée n'existe pas
  ******************************************************************************************/
 
 	void GORAjouterArc(CArc CArcGORNewArc);
@@ -142,6 +142,5 @@ public :
 
 	CSommet GORFindSommet(unsigned int uiGORNumSommet);
 };
-
 
 #endif
