@@ -1,16 +1,15 @@
 #include "CArc.h"
 
-CArc::CArc(unsigned int uiNumD, unsigned int uiNumA)
+CArc::CArc(unsigned int uiARCNumD, unsigned int uiARCNumA)
 {
-	uiARCNumeroSommetD = uiNumD;
-	uiARCNumeroSommetA = uiNumA;
+	uiARCNumeroSommetD = uiARCNumD;
+	uiARCNumeroSommetA = uiARCNumA;
 }
 
 CArc::~CArc()
 {
-	uiARCNumeroSommetD = 0;
-	uiARCNumeroSommetA = 0;
-	delete CArc(uiARCNumeroSommetD, uiARCNumeroSommetA);
+	/*uiARCNumeroSommetD = 0;
+	uiARCNumeroSommetA = 0;*/ /// A voir si il y a besoin d'un destructeur
 }
 
 unsigned int CArc::ARCGetNumeroD()
@@ -18,9 +17,9 @@ unsigned int CArc::ARCGetNumeroD()
 	return uiARCNumeroSommetD;
 }
 
-void CArc::ARCSetNumeroD(unsigned int uiNum) 
+void CArc::ARCSetNumeroD(unsigned int uiARCNum) 
 {
-	uiARCNumeroSommetD = uiNum;
+	uiARCNumeroSommetD = uiARCNum;
 }
 
 unsigned int CArc::ARCGetNumeroA() 
@@ -28,9 +27,9 @@ unsigned int CArc::ARCGetNumeroA()
 	return uiARCNumeroSommetA;
 }
 
-void CArc::ARCSetNumeroA(unsigned int uiNum)
+void CArc::ARCSetNumeroA(unsigned int uiARCNum)
 {
-	uiARCNumeroSommetA = uiNum;
+	uiARCNumeroSommetA = uiARCNum;
 }
 
 CArc* CArc::ARCInverseArc()

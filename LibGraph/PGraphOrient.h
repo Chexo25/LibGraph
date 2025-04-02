@@ -1,17 +1,17 @@
-#ifndef CGRAPHORIENT_H
-#define CGRAPHORIENT_H
+#ifndef PGRAPHORIENT_H
+#define PGRAPHORIENT_H
 
 /************************************************************************************************
  * CLASSE : Classe pour manipulations de base d'un graphe orienté
  ************************************************************************************************
  *
- * ROLE : Interface de la classe CGraphOrient
+ * ROLE : Interface de la classe PGraphOrient
  *		  Elle permet d'effectuer des opérations de base sur un graphe orienté ainsi que sur ses arcs et sommets.
  *
  ************************************************************************************************
- * VERSION : 0.0.2
+ * VERSION : 0.0.3
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 17/03/2025
+ * DATE : 02/04/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  * 
@@ -21,18 +21,19 @@
 #include "CArc.h"
 using namespace std;
 
-class CGraphOrient
+template<class TArc, class TSommet>
+class PGraphOrient
 {
 //ATTRIBUTS
 private :
-	vector<CArc*> vGORCArc;
-	vector<CSommet*> vGORCSommet;
+	vector<TArc*> vGORCArc;
+	vector<TSommet*> vGORCSommet;
 
 //CONSTRUCTEURS ET DESTRUCTEURS
 public :
-	CGraphOrient();
-	CGraphOrient(vector<CArc*> vGORCArc, vector<CArc*> vGORCSommet);
-	~CGraphOrient();
+	PGraphOrient();
+	PGraphOrient(vector<TArc*> vGORCArc, vector<TSommet*> vGORCSommet);
+	~PGraphOrient();
 
 
 //METHODES
@@ -50,7 +51,7 @@ public :
 	 * (EXCEPTION): le sommet d'arrivée n'existe pas
  ******************************************************************************************/
 
-	void GORAjouterArc(CArc CArcGORNewArc);
+	void GORAjouterArc(TArc* CArcGORNewArc);
 
 /******************************************************************************************
 	* GORModifierArc
@@ -68,7 +69,7 @@ public :
 	* (EXCEPTION) : SommetD et SommetA identiques
 ******************************************************************************************/
 
-	void GORModifierArc(CArc CArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA);
+	void GORModifierArc(TArc* CArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA);
 
 /******************************************************************************************
 	* GORSupprimerArc
@@ -80,7 +81,7 @@ public :
 	* (EXCEPTION): arc non existant
 ******************************************************************************************/
 
-	void GORSupprimerArc(CArc CArcGORArc);
+	void GORSupprimerArc(TArc* CArcGORArc);
 
 /******************************************************************************************
 	 * GORAjouterSommet
@@ -91,7 +92,7 @@ public :
 	 * Entraîne : Le sommet spécifié est ajouté dans le graphe
  ******************************************************************************************/
 
-	void GORAjouterSommet(CSommet CSommetGORNewSommet);
+	void GORAjouterSommet(TSommet* CSommetGORNewSommet);
 
 /******************************************************************************************
 	* GORModifierSommet
@@ -104,7 +105,7 @@ public :
 	  (EXCEPTION): Le numéro de sommet a déjà été attribué
 ******************************************************************************************/
 
-	void GORModifierSommet(CSommet CSommetGORSommet, unsigned int uiGORNumSommet);
+	void GORModifierSommet(TSommet* CSommetGORSommet, unsigned int uiGORNumSommet);
 
 /******************************************************************************************
 	* GORSupprimerSommet
@@ -118,7 +119,7 @@ public :
 	* (EXCEPTION): suppression des arcs impossibles
 ******************************************************************************************/
 
-	void GORSupprimerSommet(CSommet CSommetGORSommet);
+	void GORSupprimerSommet(TSommet* CSommetGORSommet);
 
 /******************************************************************************************
 	* GORFindArc
@@ -129,7 +130,7 @@ public :
 	* Entraîne : L'affichage de l'arc recherché s'il existe, NULL sinon
 ******************************************************************************************/
 
-	CArc GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA);
+	TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA);
 
 /******************************************************************************************
 	* GORFindSommet
@@ -140,7 +141,7 @@ public :
 	* Entraîne : L'affichage du sommet recherché s'il existe, NULL sinon
 ******************************************************************************************/
 
-	CSommet GORFindSommet(unsigned int uiGORNumSommet);
+	TSommet* GORFindSommet(unsigned int uiGORNumSommet);
 };
 
 #endif

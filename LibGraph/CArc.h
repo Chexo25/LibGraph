@@ -10,9 +10,9 @@
  *		  Elle permet d'effectuer des manipulations de base d'un arc.
  *
  ************************************************************************************************
- * VERSION : 0.0.2
+ * VERSION : 0.0.3
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 31/03/2025
+ * DATE : 02/04/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  *
@@ -30,7 +30,7 @@ private:
 
 //CONSTRUCTEURS ET DESTRUCTEURS :
 public:
-	CArc(unsigned int uiNumD, unsigned int uiNumA);
+	CArc(unsigned int uiARCNumD, unsigned int uiARCNumA);
 	~CArc();
 
 //METHODES :
@@ -55,7 +55,7 @@ public:
 	* Entraîne : Le numéro de départ de l'arc est modifié
 ******************************************************************************************/
 
-	void ARCSetNumeroD(unsigned int uiNum);
+	void ARCSetNumeroD(unsigned int uiARCNum);
 
 /******************************************************************************************
 	* ARCGetNumeroA
@@ -77,7 +77,7 @@ public:
 	* Entraîne : Le numéro d'arrivée de l'arc est modifié
 ******************************************************************************************/
 	
-	void ARCSetNumeroA(unsigned int uiNum);
+	void ARCSetNumeroA(unsigned int uiARCNum);
 
 /******************************************************************************************
 	* ARCInverseArc

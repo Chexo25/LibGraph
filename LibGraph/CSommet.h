@@ -10,9 +10,9 @@
  *		  ...
  *
  ************************************************************************************************
- * VERSION : 0.0.2
+ * VERSION : 0.0.3
  * AUTEUR : Corentin BAILLE, Clement BOURDIER
- * DATE : 17/03/2025
+ * DATE : 02/04/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  *
@@ -33,7 +33,7 @@ private:
 
 public:
 	//CONSTRUCTEUR ET DESTRUCTEUR
-	CSommet(unsigned int uiNumero);
+	CSommet(unsigned int uiSOMNewNumero);
 	~CSommet();
 
 	//Accesseur de uiSOMNumero
@@ -43,8 +43,7 @@ public:
 	 * Entrée : Aucune
 	 * Nécessite : Que le Sommet est un numéro (entier positif)
 	 * Sortie : Un entier : Le numéro du Sommet
-	 * Entraîne : Un entier est renvoyé OU 
-	 * (EXCEPTION): Le Sommet n'a pas de numéro valide
+	 * Entraîne : Un entier est renvoyé
 	 ******************************************************************************************/
 	unsigned int SOMGetNumero();
 
@@ -52,12 +51,12 @@ public:
 	 * SOMSetNumero
 	 * --------------------------------------------------------------------------------------
 	 * Entrée : uiNumero, Le nouveau numéro du Sommet
-	 * Nécessite : Que le numéro entré, soit un entier positif)
+	 * Nécessite : Que le numéro entré, soit un entier positif
 	 * Sortie : Aucune
 	 * Entraîne : Le numéro du Sommet est mis à jour OU
 	 * (EXCEPTION): La valeur entrée n'est pas valide
 	 ******************************************************************************************/
-	void SOMSetNumero(unsigned int uiNumero);
+	void SOMSetNumero(unsigned int uiSOMNewNumero);
 
 	//Accesseur de vSOMArcD
 	/******************************************************************************************
@@ -69,7 +68,7 @@ public:
 	 * Entraîne : L'ajout du pointeur NewArc à vSOMArcD OU
 	 * (EXCEPTION): Le pointeur n'est pas valide
 	 ******************************************************************************************/
-	void SOMAjoutArcD(CArc* NewArc);
+	void SOMAjoutArcD(CArc* ptrCArcSOMNouveauArc);
 	/******************************************************************************************
 	 * SOMGetArcD
 	 * --------------------------------------------------------------------------------------
@@ -90,7 +89,7 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas valide OU
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcD
 	 ******************************************************************************************/
-	void SOMSupprArcD(CArc* Arc);
+	void SOMSupprArcD(CArc* ptrCArcSOMArc);
 
 	//Accesseur de vSOMArcA
 		/******************************************************************************************
@@ -102,7 +101,7 @@ public:
 	 * Entraîne : L'ajout du pointeur NewArc à vSOMArcA OU
 	 * (EXCEPTION): Le pointeur n'est pas valide
 	 ******************************************************************************************/
-	void SOMAjoutArcA(CArc* NewArc);
+	void SOMAjoutArcA(CArc* ptrCArcSOMNouveauArc);
 	/******************************************************************************************
 	 * SOMGetArcA
 	 * --------------------------------------------------------------------------------------
@@ -123,7 +122,7 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas valide OU
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcA
 	 ******************************************************************************************/
-	void SOMSupprArcA(CArc* Arc);
+	void SOMSupprArcA(CArc* ptrCArcSOMArc);
 
 
 };
