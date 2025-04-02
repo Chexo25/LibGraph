@@ -1,9 +1,10 @@
 #include "CAffichage.h"
+ 
 
-void CAffichage::AFFAfficheNoeudsEtArcs(CGraphOrient CGraphOrientAFFGraphe){
+void CAffichage::AFFAfficheNoeudsEtArcs(PGraphOrient PGraphOrientAFFGraphe){
 
 }
 
-void CAffichage::AFFAfficheMatriceAdjacence(CGraphOrient CGraphOrientAFFGraphe){
+void CAffichage::AFFAfficheMatriceAdjacence(PGraphOrient PGraphOrientAFFGraphe){
 
 }

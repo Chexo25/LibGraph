@@ -11,15 +11,16 @@
  *		  - Affichage de la matrice d'adjacence
  *
  ************************************************************************************************
- * VERSION : 0.0.1
+ * VERSION : 0.0.2
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 31/03/2025
+ * DATE : 02/04/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  *
  ************************************************************************************************/
 
 #include "CGraphOrient.h"
+using namespace std;
 
 class CAffichage {
 	
@@ -28,26 +29,26 @@ class CAffichage {
 /******************************************************************************************
 	 * AFFAfficheNoeudsEtArcs
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : CGraphOrientAFFGraphe, un graphe orienté
+	 * Entrée : PGraphOrientAFFGraphe, un graphe orienté
 	 * Nécessite : que le graphe spécifié existe
 	 * Sortie : Rien
 	 * Entraîne : L'affichage de tous les noeuds et de tous les arcs du graphe spécifié OU
 	 * (EXCEPTION): graphe spécifié non existant
  ******************************************************************************************/
 
-	void AFFAfficheNoeudsEtArcs(CGraphOrient CGraphOrientAFFGraphe);
+	void AFFAfficheNoeudsEtArcs(PGraphOrient PGraphOrientAFFGraphe);
 
 /******************************************************************************************
 	* AFFAfficheMatriceAdjacence
 	* --------------------------------------------------------------------------------------
-	* Entrée : CGraphOrientAFFGraphe, un graphe orienté
+	* Entrée : PGraphOrientAFFGraphe, un graphe orienté
 	* Nécessite : que le graphe spécifié existe
 	* Sortie : Rien
 	* Entraîne : L'affichage de la matrice d'adjacence du graphe spécifié OU
 	* (EXCEPTION): graphe spécifié non existant
 ******************************************************************************************/
 
-	void AFFAfficheMatriceAdjacence(CGraphOrient CGraphOrientAFFGraphe);
+	void AFFAfficheMatriceAdjacence(PGraphOrient PGraphOrientAFFGraphe);
 };
 
 #endif
