@@ -32,7 +32,7 @@ void CArc::ARCSetNumeroA(unsigned int uiARCNum)
 	uiARCNumeroSommetA = uiARCNum;
 }
 
-CArc* CArc::ARCInverseArc()
+CArc* CArc::ARCArcInverse()
 {
 	return new CArc(uiARCNumeroSommetA, uiARCNumeroSommetD);
 }

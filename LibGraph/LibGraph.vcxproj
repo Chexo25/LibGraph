@@ -141,15 +141,15 @@
   <ItemGroup>
     <ClCompile Include="CArc.cpp" />
     <ClCompile Include="CGraph.cpp" />
-    <ClCompile Include="CGraphOrient.cpp" />
-    <ClCompile Include="CSommet.cpp" />
+    <ClCompile Include="PSommet.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PGraphOrient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CArc.h" />
     <ClInclude Include="CGraph.h" />
-    <ClInclude Include="CGraphOrient.h" />
-    <ClInclude Include="CSommet.h" />
+    <ClInclude Include="PSommet.h" />
+    <ClInclude Include="PGraphOrient.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

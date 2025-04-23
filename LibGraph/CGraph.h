@@ -1,11 +1,11 @@
 #pragma once
-#include "CGraphOrient.h"
+#include "PGraphOrient.h"
 
 #ifndef CGRAPH_H
 #define CGRAPH_H
 
 
-class CGraph : public CGraphOrient
+class CGraph : public PGraphOrient
 {
 
 };

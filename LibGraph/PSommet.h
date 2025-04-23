@@ -2,41 +2,40 @@
 #define CSOMMET_H
 
 /************************************************************************************************
- * CLASSE : Classe pour définir des sommets
+ * TEMPLATE : Patron de classe permettant de définir des sommets
  ************************************************************************************************
  *
- * ROLE : Interface de la classe CSommet
- *        Cette classe permet de définir des sommets
+ * ROLE : Interface du patron de classe PSommet
+ *        Ce paton de classe permet de définir des sommets
  *		  ...
  *
  ************************************************************************************************
- * VERSION : 0.0.3
+ * VERSION : 0.0.4
  * AUTEUR : Corentin BAILLE, Clement BOURDIER
- * DATE : 02/04/2025
+ * DATE : 23/04/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  *
  ************************************************************************************************/
 #include <vector>
-
 #include "CArc.h"
 
 using namespace std;
 
-class CSommet
+template<class TArc>
+class PSommet
 {
 private:
 	//ATTRIBUTS
 	unsigned int uiSOMNumero;
-	vector<CArc*> vSOMArcD;
-	vector<CArc*> vSOMArcA;
+	vector<TArc*> vSOMArcD;
+	vector<TArc*> vSOMArcA;
 
 public:
 	//CONSTRUCTEUR ET DESTRUCTEUR
-	CSommet(unsigned int uiSOMNewNumero);
-	~CSommet();
+	PSommet(unsigned int uiSOMNewNumero);
+	~PSommet();
 
-	//Accesseur de uiSOMNumero
 	/******************************************************************************************
 	 * SOMGetNumero
 	 * --------------------------------------------------------------------------------------
@@ -45,6 +44,7 @@ public:
 	 * Sortie : Un entier : Le numéro du Sommet
 	 * Entraîne : Un entier est renvoyé
 	 ******************************************************************************************/
+	
 	unsigned int SOMGetNumero();
 
 	/******************************************************************************************
@@ -56,6 +56,7 @@ public:
 	 * Entraîne : Le numéro du Sommet est mis à jour OU
 	 * (EXCEPTION): La valeur entrée n'est pas valide
 	 ******************************************************************************************/
+	
 	void SOMSetNumero(unsigned int uiSOMNewNumero);
 
 	//Accesseur de vSOMArcD
@@ -68,7 +69,9 @@ public:
 	 * Entraîne : L'ajout du pointeur NewArc à vSOMArcD OU
 	 * (EXCEPTION): Le pointeur n'est pas valide
 	 ******************************************************************************************/
-	void SOMAjoutArcD(CArc* ptrCArcSOMNouveauArc);
+	
+	void SOMAjoutArcD(TArc* ptrTArcSOMNouveauArc);
+
 	/******************************************************************************************
 	 * SOMGetArcD
 	 * --------------------------------------------------------------------------------------
@@ -78,7 +81,9 @@ public:
 	 * Entraîne : Retourne vSOMArcD OU
 	 * (EXCEPTION): vSOMArcD est nulle
 	 ******************************************************************************************/
-	vector<CArc*> SOMGetArcD();
+	
+	vector<TArc*> SOMGetArcD();
+
 	/******************************************************************************************
 	 * SOMSupprArcD
 	 * --------------------------------------------------------------------------------------
@@ -89,7 +94,8 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas valide OU
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcD
 	 ******************************************************************************************/
-	void SOMSupprArcD(CArc* ptrCArcSOMArc);
+	
+	void SOMSupprArcD(TArc* ptrTArcSOMArc);
 
 	//Accesseur de vSOMArcA
 		/******************************************************************************************
@@ -101,7 +107,9 @@ public:
 	 * Entraîne : L'ajout du pointeur NewArc à vSOMArcA OU
 	 * (EXCEPTION): Le pointeur n'est pas valide
 	 ******************************************************************************************/
-	void SOMAjoutArcA(CArc* ptrCArcSOMNouveauArc);
+
+	void SOMAjoutArcA(TArc* ptrTArcSOMNouveauArc);
+
 	/******************************************************************************************
 	 * SOMGetArcA
 	 * --------------------------------------------------------------------------------------
@@ -111,7 +119,9 @@ public:
 	 * Entraîne : Retourne vSOMArcA OU
 	 * (EXCEPTION): vSOMArcA est nulle
 	 ******************************************************************************************/
-	vector<CArc*> SOMGetArcA();
+	
+	vector<TArc*> SOMGetArcA();
+
 	/******************************************************************************************
 	 * SOMSupprArcA
 	 * --------------------------------------------------------------------------------------
@@ -122,7 +132,8 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas valide OU
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcA
 	 ******************************************************************************************/
-	void SOMSupprArcA(CArc* ptrCArcSOMArc);
+	
+	void SOMSupprArcA(TArc* ptrTArcSOMArc);
 
 
 };

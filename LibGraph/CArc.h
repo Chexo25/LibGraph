@@ -88,7 +88,7 @@ public:
 	* Entraîne : Le numéro de départ de l'arc devient son numéro d'arrivée et inversement
 ******************************************************************************************/
 
-	CArc* ARCInverseArc();
+	CArc* ARCArcInverse();
 };
 
 
