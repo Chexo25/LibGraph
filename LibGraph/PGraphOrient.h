@@ -9,9 +9,9 @@
  *		  Elle permet d'effectuer des opérations de base sur un graphe orienté ainsi que sur ses arcs et sommets.
  *
  ************************************************************************************************
- * VERSION : 0.0.3
+ * VERSION : 0.0.4
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 02/04/2025
+ * DATE : 23/04/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  * 
@@ -86,10 +86,11 @@ public :
 /******************************************************************************************
 	 * GORAjouterSommet
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : CSommetGORNewSommet, le nouveeau sommet que l'on veut ajouter au graphe
+	 * Entrée : CSommetGORNewSommet, le nouveau sommet que l'on veut ajouter au graphe
 	 * Nécessite : Rien
 	 * Sortie : Rien
-	 * Entraîne : Le sommet spécifié est ajouté dans le graphe
+	 * Entraîne : Le sommet spécifié est ajouté dans le graphe ou
+	 * (EXCEPTION): Le numéro de sommet a déjà été attribué
  ******************************************************************************************/
 
 	void GORAjouterSommet(TSommet* CSommetGORNewSommet);
@@ -115,8 +116,7 @@ public :
 	* Que les arcs reliés à ce sommet soient aussi supprimés
 	* Sortie : Rien
 	* Entraîne : Le sommet spécifié est supprimé dans le graphe OU
-	* (EXCEPTION): sommet non existant OU
-	* (EXCEPTION): suppression des arcs impossibles
+	* (EXCEPTION): sommet non existant 
 ******************************************************************************************/
 
 	void GORSupprimerSommet(TSommet* CSommetGORSommet);
@@ -142,6 +142,30 @@ public :
 ******************************************************************************************/
 
 	TSommet* GORFindSommet(unsigned int uiGORNumSommet);
+
+/******************************************************************************************
+	* GORGetArc
+	* --------------------------------------------------------------------------------------
+	* Entrée : Rien
+	* Sortie : Le vector vGORCArc
+	* Entraîne : Retourne vGORCArc OU
+	* (EXCEPTION): vGORCArc est nulle
+******************************************************************************************/
+
+	vector<TArc*> GORGetArc();
+
+/******************************************************************************************
+	* GORGetSommet
+	* --------------------------------------------------------------------------------------
+	* Entrée : Rien
+	* Sortie : Le vector vGORCSommet
+	* Entraîne : Retourne vGORCSommet OU
+	* (EXCEPTION): vGORCSommet est nulle
+******************************************************************************************/
+
+	vector<TArc*> GORGetSommet();
+
+
 };
 
 #endif
