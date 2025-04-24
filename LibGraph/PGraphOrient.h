@@ -17,7 +17,7 @@
  * 
  ************************************************************************************************/
 #include <vector>
-#include "CSommet.h"
+#include "PSommet.h"
 #include "CArc.h"
 using namespace std;
 
@@ -31,7 +31,7 @@ private :
 
 //CONSTRUCTEURS ET DESTRUCTEURS
 public :
-	PGraphOrient();
+
 	PGraphOrient(vector<TArc*> vGORCArc, vector<TSommet*> vGORCSommet);
 	~PGraphOrient();
 
@@ -163,7 +163,7 @@ public :
 	* (EXCEPTION): vGORCSommet est nulle
 ******************************************************************************************/
 
-	vector<TArc*> GORGetSommet();
+	vector<TSommet*> GORGetSommet();
 
 
 };
