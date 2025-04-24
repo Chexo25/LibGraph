@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PAffichage.cpp" />
     <ClCompile Include="CArc.cpp" />
     <ClCompile Include="CGraph.cpp" />
     <ClCompile Include="PSommet.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="PGraphOrient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PAffichage.h" />
     <ClInclude Include="CArc.h" />
     <ClInclude Include="CGraph.h" />
     <ClInclude Include="PSommet.h" />
