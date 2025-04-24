@@ -2,7 +2,7 @@
 #define CSOMMET_H
 
 /************************************************************************************************
- * TEMPLATE : Patron de classe permettant de définir des sommets
+ * PATRON DE CLASSE : Patron de classe permettant de définir des sommets
  ************************************************************************************************
  *
  * ROLE : Interface du patron de classe PSommet
