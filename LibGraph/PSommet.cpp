@@ -1,13 +1,13 @@
 #include "PSommet.h"
 
 template<class TArc>
-PSommet<class TArc>::PSommet(unsigned int uiSOMNewNumero)
+PSommet<TArc>::PSommet(unsigned int uiSOMNewNumero)
 {
 	uiSOMNumero = uiSOMNewNumero;
 }
 
 template<class TArc>
-PSommet<class TArc>::~PSommet()
+PSommet<TArc>::~PSommet()
 {
 	for (TArc* arc : vSOMArcD) {
 		delete arc;  //Supprime chaque arc de départ
@@ -21,13 +21,13 @@ PSommet<class TArc>::~PSommet()
 
 //Accesseur de uiSOMNumero
 template<class TArc>
-unsigned int PSommet<class TArc>::SOMGetNumero()
+unsigned int PSommet<TArc>::SOMGetNumero()
 {
 	return uiSOMNumero;
 }
 
 template<class TArc>
-void PSommet<class TArc>::SOMSetNumero(unsigned int uiSOMNewNumero)
+void PSommet<TArc>::SOMSetNumero(unsigned int uiSOMNewNumero)
 {
 	uiSOMNumero = uiSOMNewNumero;
 }
@@ -35,7 +35,7 @@ void PSommet<class TArc>::SOMSetNumero(unsigned int uiSOMNewNumero)
 //Accesseur de vSOMArcD
 
 template<class TArc>
-void PSommet<class TArc>::SOMAjoutArcD(TArc* ptrTArcSOMNouveauArc)
+void PSommet<TArc>::SOMAjoutArcD(TArc* ptrTArcSOMNouveauArc)
 {
 	if (ptrTArcSOMNouveauArc != nullptr)
 	{
@@ -48,7 +48,7 @@ void PSommet<class TArc>::SOMAjoutArcD(TArc* ptrTArcSOMNouveauArc)
 }
 
 template<class TArc>
-vector<TArc*> PSommet<class TArc>::SOMGetArcD()
+vector<TArc*> PSommet<TArc>::SOMGetArcD()
 {
 	if (vSOMArcD.empty())
 	{
@@ -61,7 +61,7 @@ vector<TArc*> PSommet<class TArc>::SOMGetArcD()
 }
 
 template<class TArc>
-void PSommet<class TArc>::SOMSupprArcD(TArc* ptrTArcSOMArc)
+void PSommet<TArc>::SOMSupprArcD(TArc* ptrTArcSOMArc)
 {
 	auto iIterator = find(vSOMArcD.begin(), vSOMArcD.end(), ptrTArcSOMArc);
 	if(iIterator != vSOMArcD.end())
@@ -76,7 +76,7 @@ void PSommet<class TArc>::SOMSupprArcD(TArc* ptrTArcSOMArc)
 
 //Accesseur de vSOMArcA
 template<class TArc>
-void PSommet<class TArc>::SOMAjoutArcA(TArc* ptrTArcSOMNouveauArc)
+void PSommet<TArc>::SOMAjoutArcA(TArc* ptrTArcSOMNouveauArc)
 {
 	if (ptrTArcSOMNouveauArc != nullptr)
 	{
@@ -89,7 +89,7 @@ void PSommet<class TArc>::SOMAjoutArcA(TArc* ptrTArcSOMNouveauArc)
 }
 
 template<class TArc>
-vector<TArc*> PSommet<class TArc>::SOMGetArcA()
+vector<TArc*> PSommet<TArc>::SOMGetArcA()
 {
 	if (vSOMArcA.empty())
 	{
@@ -102,7 +102,7 @@ vector<TArc*> PSommet<class TArc>::SOMGetArcA()
 }
 
 template<class TArc>
-void PSommet<class TArc>::SOMSupprArcA(TArc* ptrTArcSOMArc)
+void PSommet<TArc>::SOMSupprArcA(TArc* ptrTArcSOMArc)
 {
 	auto iIterator = find(vSOMArcA.begin(), vSOMArcA.end(), ptrTArcSOMArc);
 		if (iIterator != vSOMArcA.end())

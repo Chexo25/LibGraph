@@ -6,7 +6,7 @@ template <class TGraph, class TArc, class TSommet> void AFFAfficheSommetsEtArcs(
 	vector<TSommet*> vSommet= TGraphAFFGraphe.GORGetSommet();
 	//Si le type n'est pas un graphe, le getter ne sera pas trouvé
 	if (!vSommet) {
-		throw invalid_argument("Le type passe pour la classe n'est pas un graphe") 
+		throw invalid_argument("Le type passe pour la classe n'est pas un graphe");
 	}
 	unsigned int uiSizevSommet = vSommet.size();
 	for (unsigned int uiIndex = 0; uiIndex < uiSizevSommet; uiIndex++) 

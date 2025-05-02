@@ -4,8 +4,8 @@
 #ifndef CGRAPH_H
 #define CGRAPH_H
 
-
-class CGraph : public PGraphOrient
+template <class TArc, class TSommet>
+class CGraph : public PGraphOrient<TArc, TSommet>
 {
 
 };
