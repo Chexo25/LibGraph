@@ -17,22 +17,25 @@
  * 
  ************************************************************************************************/
 #include <vector>
+
 #include "PSommet.h"
 #include "CArc.h"
+
 using namespace std;
 
-template<class TArc, class TSommet>
+template <class TArc, template <class> class TSommet>
 class PGraphOrient
 {
 //ATTRIBUTS
 private :
 	vector<TArc*> vGORCArc;
-	vector<TSommet*> vGORCSommet;
+	vector<TSommet<TArc>*> vGORCSommet;
 
 //CONSTRUCTEURS ET DESTRUCTEURS
 public :
-
-	PGraphOrient(vector<TArc*> vGORCArc, vector<TSommet*> vGORCSommet);
+	
+	PGraphOrient();
+	PGraphOrient(vector<TArc*> vGORCArc, vector<TSommet<TArc>*> vGORCSommet);
 	~PGraphOrient();
 
 
@@ -93,7 +96,7 @@ public :
 	 * (EXCEPTION): Le numéro de sommet a déjà été attribué
  ******************************************************************************************/
 
-	void GORAjouterSommet(TSommet* CSommetGORNewSommet);
+	void GORAjouterSommet(TSommet<TArc>* CSommetGORNewSommet);
 
 /******************************************************************************************
 	* GORModifierSommet
@@ -106,7 +109,7 @@ public :
 	  (EXCEPTION): Le numéro de sommet a déjà été attribué
 ******************************************************************************************/
 
-	void GORModifierSommet(TSommet* CSommetGORSommet, unsigned int uiGORNumSommet);
+	void GORModifierSommet(TSommet<TArc>* CSommetGORSommet, unsigned int uiGORNumSommet);
 
 /******************************************************************************************
 	* GORSupprimerSommet
@@ -119,7 +122,7 @@ public :
 	* (EXCEPTION): sommet non existant 
 ******************************************************************************************/
 
-	void GORSupprimerSommet(TSommet* CSommetGORSommet);
+	void GORSupprimerSommet(TSommet<TArc>* CSommetGORSommet);
 
 /******************************************************************************************
 	* GORFindArc
@@ -141,7 +144,7 @@ public :
 	* Entraîne : L'affichage du sommet recherché s'il existe, NULL sinon
 ******************************************************************************************/
 
-	TSommet* GORFindSommet(unsigned int uiGORNumSommet);
+	TSommet<TArc>* GORFindSommet(unsigned int uiGORNumSommet);
 
 /******************************************************************************************
 	* GORGetArc
@@ -163,7 +166,7 @@ public :
 	* (EXCEPTION): vGORCSommet est nulle
 ******************************************************************************************/
 
-	vector<TSommet*> GORGetSommet();
+	vector<TSommet<TArc>*> GORGetSommet();
 
 
 };

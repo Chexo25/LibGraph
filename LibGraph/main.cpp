@@ -11,9 +11,13 @@
 
 using namespace std;
 
-
-template <template <class, class> class TGraph, class TArc, template <class> class TSommet, TArc>
-TGraph <TArc,TSommet<TArc>> * Lecturefichier(string sNomFichier)
+template <
+    template <class, class> class TGraph,
+    class TArc, 
+    template <class> class TSommet
+>
+//<PGraphOrient<CArc, PSommet<CArc>>, CArc, PSommet>
+TGraph <TArc,TSommet<TArc>> * Lecturefichier(const string sNomFichier)
 {
     ifstream fFichier(sNomFichier);
 
@@ -22,24 +26,24 @@ TGraph <TArc,TSommet<TArc>> * Lecturefichier(string sNomFichier)
         throw invalid_argument("Le fichier n'est pas ouvert");
     }
 
-    TGraph* NewGraph = new TGraph();
+    TGraph<TArc, TSommet<TArc>>* NewGraph = new TGraph<TArc, TSommet<TArc>>();
     string sBuffer;
     int iNbrSommet;
     int iNbrArc;
     int iIterator;
 
     getline(fFichier, sBuffer);
-    iNbrSommet = (int)sBuffer.substr(10,sBuffer.size());
+    iNbrSommet = stoul(sBuffer.substr(10,sBuffer.size()));
 
     getline(fFichier, sBuffer);
-    iNbrArc = (int)sBuffer.substr(7, sBuffer.size());
+    iNbrArc = stoul(sBuffer.substr(7, sBuffer.size()));
 
     getline(fFichier, sBuffer);
     for (iIterator = 0; iIterator < iNbrSommet; iIterator++)
     {
         getline(fFichier, sBuffer);
-        TSommet* NewSommet = new TSommet((unsigned int)sBuffer.substr(7, sBuffer.size()));
-        NewGraph.GORAjouterSommet(NewSommet);
+        TSommet<TArc>* NewSommet = new TSommet<TArc>(stoul(sBuffer.substr(7, sBuffer.size())));
+        NewGraph->GORAjouterSommet(NewSommet);
     }
     getline(fFichier, sBuffer);
 
@@ -50,12 +54,12 @@ TGraph <TArc,TSommet<TArc>> * Lecturefichier(string sNomFichier)
     {
         getline(fFichier, sBuffer);
 
-        uiSommetD = (unsigned int)sBuffer.substr(6, sBuffer.find(",", 0));
-        uiSommetA = (unsigned int)sBuffer.substr(sBuffer.find(",", 0)+4,sBuffer.size()); 
+        uiSommetD = stoul(sBuffer.substr(6, sBuffer.find(",", 0)));
+        uiSommetA = stoul(sBuffer.substr(sBuffer.find(",", 0)+4,sBuffer.size()));
 
         TArc* NewArc = new TArc(uiSommetD, uiSommetA);
 
-        NewGraph.GORAjouterArc(NewArc);
+        NewGraph->GORAjouterArc(NewArc);
     }
 
     fFichier.close();
@@ -65,9 +69,11 @@ TGraph <TArc,TSommet<TArc>> * Lecturefichier(string sNomFichier)
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    cout << "Hello World!\n";
 
     string sFichier = "TestLectureGraph.txt";
-    Lecturefichier<PGraphOrient,CArc,PSommet>(sFichier); //Todo faire marcher cette appel
+    PGraphOrient<CArc, PSommet<CArc>>* Graph = Lecturefichier<PGraphOrient, CArc, PSommet>(sFichier);//Todo faire marcher cette appel
+
+    return 0;
 }
 
