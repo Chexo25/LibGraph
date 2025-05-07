@@ -71,8 +71,8 @@ int main()
 {
     cout << "Hello World!\n";
 
-    string sFichier = "TestLectureGraph.txt";
-    PGraphOrient<CArc, PSommet<CArc>>* Graph = Lecturefichier<PGraphOrient, CArc, PSommet>(sFichier);//Todo faire marcher cette appel
+    const string sFichier = "TestLectureGraph.txt";
+    PGraphOrient<CArc, PSommet>* Graph = Lecturefichier<PGraphOrient, CArc, PSommet>(sFichier);//Todo faire marcher cette appel
 
     return 0;
 }
