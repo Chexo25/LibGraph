@@ -11,13 +11,9 @@
 
 using namespace std;
 
-template <
-    template <class, class> class TGraph,
-    class TArc, 
-    template <class> class TSommet
->
-//<PGraphOrient<CArc, PSommet<CArc>>, CArc, PSommet>
-TGraph <TArc,TSommet<TArc>> * Lecturefichier(const string sNomFichier)
+template <template <class> class TGraph,class TArc>
+
+TGraph<TArc> Lecturefichier(const string sNomFichier)
 {
     ifstream fFichier(sNomFichier);
 
@@ -26,7 +22,7 @@ TGraph <TArc,TSommet<TArc>> * Lecturefichier(const string sNomFichier)
         throw invalid_argument("Le fichier n'est pas ouvert");
     }
 
-    TGraph<TArc, TSommet<TArc>>* NewGraph = new TGraph<TArc, TSommet<TArc>>();
+    TGraph<TArc>* NewGraph = new TGraph<TArc>();
     string sBuffer;
     int iNbrSommet;
     int iNbrArc;
@@ -42,8 +38,8 @@ TGraph <TArc,TSommet<TArc>> * Lecturefichier(const string sNomFichier)
     for (iIterator = 0; iIterator < iNbrSommet; iIterator++)
     {
         getline(fFichier, sBuffer);
-        TSommet<TArc>* NewSommet = new TSommet<TArc>(stoul(sBuffer.substr(7, sBuffer.size())));
-        NewGraph->GORAjouterSommet(NewSommet);
+        PSommet<TArc> NewSommet = new PSommet<TArc>(stoul(sBuffer.substr(7, sBuffer.size())));
+        NewGraph.GORAjouterSommet(NewSommet);
     }
     getline(fFichier, sBuffer);
 
@@ -59,7 +55,7 @@ TGraph <TArc,TSommet<TArc>> * Lecturefichier(const string sNomFichier)
 
         TArc* NewArc = new TArc(uiSommetD, uiSommetA);
 
-        NewGraph->GORAjouterArc(NewArc);
+        NewGraph.GORAjouterArc(NewArc);
     }
 
     fFichier.close();
@@ -72,8 +68,9 @@ int main()
     cout << "Hello World!\n";
 
     const string sFichier = "TestLectureGraph.txt";
-    PGraphOrient<CArc, PSommet>* Graph = Lecturefichier<PGraphOrient, CArc, PSommet>(sFichier);//Todo faire marcher cette appel
+    PGraphOrient<CArc> Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);//Todo faire marcher cette appel
 
     return 0;
 }
 
+//todo : enlever les pointeurs parce que Hugo l'a dit (mettre des . à la place des -> aussi du coup)

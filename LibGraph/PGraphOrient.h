@@ -23,22 +23,22 @@
 
 using namespace std;
 
-template <class TArc, template <class> class TSommet>
+template <class TArc>
 class PGraphOrient
 {
 //ATTRIBUTS
 private :
 	vector<TArc*> vGORCArc;
-	vector<TSommet<TArc>*> vGORCSommet;
+	vector<PSommet<TArc>*> vGORCSommet;
 
 //CONSTRUCTEURS ET DESTRUCTEURS
 public :
 	
-	template<class TArc, template <class> class TSommet>
+	template<class TArc>
 	PGraphOrient() {
 
 	}
-	PGraphOrient(vector<TArc*> vGORCArc, vector<TSommet<TArc>*> vGORCSommet)
+	PGraphOrient(vector<TArc*> vGORCArc, vector<PSommet<TArc>*> vGORCSommet)
 	{
 		this->vGORCArc = vGORCArc;
 		this->vGORCSommet = vGORCSommet;
@@ -123,20 +123,20 @@ public :
 		unsigned int iNumSommetD = CArcGORArc->ARCGetNumeroD();
 		unsigned int iNumSommetA = CArcGORArc->ARCGetNumeroA();
 
-		TSommet<TArc>* ptrTSommetD = GORFindSommet(iNumSommetD);
-		TSommet<TArc>* ptrTSommetA = GORFindSommet(iNumSommetA);
+		PSommet<TArc>* ptrPSommetD = GORFindSommet(iNumSommetD);
+		PSommet<TArc>* ptrPSommetA = GORFindSommet(iNumSommetA);
 
-		ptrTSommetD->SOMSupprArcD(CArcGORArc);
-		ptrTSommetA->SOMSupprArcA(CArcGORArc);
+		ptrPSommetD->SOMSupprArcD(CArcGORArc);
+		ptrPSommetA->SOMSupprArcA(CArcGORArc);
 
 		CArcGORArc->ARCSetNumeroD(uiGORSommetD);
 		CArcGORArc->ARCSetNumeroA(uiGORSommetA);
 
-		TSommet<TArc>* ptrTSommetnewD = GORFindSommet(uiGORSommetD);
-		TSommet<TArc>* ptrTSommetnewA = GORFindSommet(uiGORSommetA);
+		PSommet<TArc>* ptrPSommetnewD = GORFindSommet(uiGORSommetD);
+		PSommet<TArc>* ptrPSommetnewA = GORFindSommet(uiGORSommetA);
 
-		ptrTSommetnewD->SOMAjoutArcD(CArcGORArc);
-		ptrTSommetnewA->SOMAjoutArcA(CArcGORArc);
+		ptrPSommetnewD->SOMAjoutArcD(CArcGORArc);
+		ptrPSommetnewA->SOMAjoutArcA(CArcGORArc);
 
 	}
 
@@ -160,11 +160,11 @@ public :
 		unsigned int iNumSommetD = CArcGORArc->ARCGetNumeroD();
 		unsigned int iNumSommetA = CArcGORArc->ARCGetNumeroA();
 
-		TSommet<TArc>* ptrTSommetD = GORFindSommet(iNumSommetD);
-		TSommet<TArc>* ptrTSommetA = GORFindSommet(iNumSommetA);
+		PSommet<TArc>* ptrPSommetD = GORFindSommet(iNumSommetD);
+		PSommet<TArc>* ptrPSommetA = GORFindSommet(iNumSommetA);
 
-		ptrTSommetD->SOMSupprArcD(CArcGORArc);
-		ptrTSommetA->SOMSupprArcA(CArcGORArc);
+		ptrPSommetD->SOMSupprArcD(CArcGORArc);
+		ptrPSommetA->SOMSupprArcA(CArcGORArc);
 
 		auto aIterator = find(vGORCArc.begin(), vGORCArc.end(), CArcGORArc);
 		vGORCArc.erase(aIterator);
@@ -181,7 +181,7 @@ public :
 	 * (EXCEPTION): Le numéro de sommet a déjà été attribué
  ******************************************************************************************/
 
-	void GORAjouterSommet(TSommet<TArc>* CSommetGORNewSommet)
+	void GORAjouterSommet(PSommet<TArc>* CSommetGORNewSommet)
 	{
 		unsigned int uiNumSommet = CSommetGORNewSommet->SOMGetNumero();
 		if (GORFindSommet(uiNumSommet) != nullptr) {
@@ -201,7 +201,7 @@ public :
 	  (EXCEPTION): Le numéro de sommet a déjà été attribué
 ******************************************************************************************/
 
-	void GORModifierSommet(TSommet<TArc>* CSommetGORSommet, unsigned int uiGORNumSommet)
+	void GORModifierSommet(PSommet<TArc>* CSommetGORSommet, unsigned int uiGORNumSommet)
 	{
 		if (GORFindSommet(uiGORNumSommet) != nullptr) {
 			throw invalid_argument("Sommet deja existant");
@@ -235,7 +235,7 @@ public :
 	* (EXCEPTION): sommet non existant 
 ******************************************************************************************/
 
-	void GORSupprimerSommet(TSommet<TArc>* CSommetGORSommet)
+	void GORSupprimerSommet(PSommet<TArc>* CSommetGORSommet)
 	{
 		if (find(vGORCSommet.begin(), vGORCSommet.end(), CSommetGORSommet) == vGORCSommet.end()) {
 			throw invalid_argument("Sommet d'arrivee non existant");
@@ -292,20 +292,20 @@ public :
 	* Entraîne : L'affichage du sommet recherché s'il existe, NULL sinon
 ******************************************************************************************/
 
-	TSommet<TArc>* GORFindSommet(unsigned int uiGORNumSommet)
+	PSommet<TArc>* GORFindSommet(unsigned int uiGORNumSommet)
 	{
-		TSommet<TArc>* ptrTSommetSommetTrouve = nullptr;
+		PSommet<TArc>* ptrPSommetSommetTrouve = nullptr;
 		size_t iIterator = 0;
 
 		do
 		{
 			if (vGORCSommet[iIterator]->SOMGetNumero() == uiGORNumSommet)
 			{
-				ptrTSommetSommetTrouve = vGORCSommet[iIterator];
+				ptrPSommetSommetTrouve = vGORCSommet[iIterator];
 			}
 			iIterator++;
-		} while (iIterator < vGORCSommet.size() && ptrTSommetSommetTrouve == nullptr);
-		return ptrTSommetSommetTrouve;
+		} while (iIterator < vGORCSommet.size() && ptrPSommetSommetTrouve == nullptr);
+		return ptrPSommetSommetTrouve;
 	}
 
 /******************************************************************************************
@@ -338,7 +338,7 @@ public :
 	* (EXCEPTION): vGORCSommet est nulle
 ******************************************************************************************/
 
-	vector<TSommet<TArc>*> GORGetSommet()
+	vector<PSommet<TArc>*> GORGetSommet()
 	{
 		if (vGORCSommet.empty())
 		{
