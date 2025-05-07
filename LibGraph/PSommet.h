@@ -205,15 +205,16 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcA
 	 ******************************************************************************************/
 	
-	void SOMGetArcA()
+	void SOMSupprArcA(TArc* ptrTArcSOMArc)
 	{
-		if (vSOMArcA.empty())
+		auto iIterator = find(vSOMArcA.begin(), vSOMArcA.end(), ptrTArcSOMArc);
+		if (iIterator != vSOMArcA.end())
 		{
-			throw invalid_argument("Vector vide");
+			vSOMArcA.erase(iIterator);
 		}
 		else
 		{
-			return vSOMArcA;
+			throw invalid_argument("Arc non existant dans la liste d arrive !");
 		}
 	}
 

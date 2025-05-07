@@ -13,7 +13,7 @@ using namespace std;
 
 template <template <class> class TGraph,class TArc>
 
-TGraph<TArc> Lecturefichier(const string sNomFichier)
+TGraph<TArc> * Lecturefichier(const string sNomFichier)
 {
     ifstream fFichier(sNomFichier);
 
@@ -22,11 +22,13 @@ TGraph<TArc> Lecturefichier(const string sNomFichier)
         throw invalid_argument("Le fichier n'est pas ouvert");
     }
 
-    TGraph<TArc>* NewGraph = new TGraph<TArc>();
+    TGraph<TArc> * NewGraph = new TGraph<TArc>();
     string sBuffer;
     int iNbrSommet;
     int iNbrArc;
     int iIterator;
+
+    PSommet<TArc>* NewSommet;
 
     getline(fFichier, sBuffer);
     iNbrSommet = stoul(sBuffer.substr(10,sBuffer.size()));
@@ -38,9 +40,12 @@ TGraph<TArc> Lecturefichier(const string sNomFichier)
     for (iIterator = 0; iIterator < iNbrSommet; iIterator++)
     {
         getline(fFichier, sBuffer);
-        PSommet<TArc> NewSommet = new PSommet<TArc>(stoul(sBuffer.substr(7, sBuffer.size())));
-        NewGraph.GORAjouterSommet(NewSommet);
+        string Num = sBuffer.substr(7, sBuffer.size());
+		unsigned int uiNum = stoul(Num);
+        NewSommet = new PSommet<TArc>(uiNum);
+        NewGraph->GORAjouterSommet(NewSommet);
     }
+
     getline(fFichier, sBuffer);
 
     getline(fFichier, sBuffer);
@@ -51,11 +56,11 @@ TGraph<TArc> Lecturefichier(const string sNomFichier)
         getline(fFichier, sBuffer);
 
         uiSommetD = stoul(sBuffer.substr(6, sBuffer.find(",", 0)));
-        uiSommetA = stoul(sBuffer.substr(sBuffer.find(",", 0)+4,sBuffer.size()));
+        uiSommetA = stoul(sBuffer.substr(sBuffer.find(",", 0)+6,sBuffer.size()));
 
         TArc* NewArc = new TArc(uiSommetD, uiSommetA);
 
-        NewGraph.GORAjouterArc(NewArc);
+        NewGraph->GORAjouterArc(NewArc);
     }
 
     fFichier.close();
@@ -68,9 +73,10 @@ int main()
     cout << "Hello World!\n";
 
     const string sFichier = "TestLectureGraph.txt";
-    PGraphOrient<CArc> Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);//Todo faire marcher cette appel
+    PGraphOrient<CArc> * Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);//Todo faire marcher cette appel
 
     return 0;
 }
 
-//todo : enlever les pointeurs parce que Hugo l'a dit (mettre des . à la place des -> aussi du coup)
+//todo : enlever les pointeurs parce que Hugo l'a dit (mettre des . à la place des -> aussi du coup) 
+// Eh, non ? Sinon ca copy un objet entier, et vaut mieux passe par des addresses pour bcp de choses

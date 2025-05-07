@@ -38,6 +38,9 @@ public :
 	PGraphOrient() {
 
 	}
+	PGraphOrient<TArc>() {
+
+	}
 	PGraphOrient(vector<TArc*> vGORCArc, vector<PSommet<TArc>*> vGORCSommet)
 	{
 		this->vGORCArc = vGORCArc;
@@ -187,7 +190,7 @@ public :
 		if (GORFindSommet(uiNumSommet) != nullptr) {
 			throw invalid_argument("Sommet deja existant");
 		}
-		vGORCSommet.push_back(CSommetGORNewSommet);
+		this->vGORCSommet.push_back(CSommetGORNewSommet);
 	}
 
 /******************************************************************************************
@@ -265,21 +268,25 @@ public :
 	* Entrée : uiGORNumSommetD, le sommet de départ de l'arc recherché,
 	* uiGORNumSommetA, le sommet d'arrivée de l'arc recherché
 	* Nécessite : Rien
-	* Entraîne : L'affichage de l'arc recherché s'il existe, NULL sinon
+	* Entraîne : L'affichage de l'arc recherché s'il existe, NULL sinon OU
+	* (EXCEPTION): Liste vide, ce qui renvoie NULL
 ******************************************************************************************/
 
 	TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
 	{
 		TArc* ptrTArcArcTrouve = nullptr;
 		size_t iIterator = 0;
-		do
+		if (vGORCArc.empty() == false)
 		{
-			if (vGORCArc[iIterator]->ARCGetNumeroD() == uiGORNumSommetD && vGORCArc[iIterator]->ARCGetNumeroA() == uiGORNumSommetA)
+			do
 			{
-				ptrTArcArcTrouve = vGORCArc[iIterator];
-			}
-			iIterator++;
-		} while (iIterator < vGORCArc.size() && ptrTArcArcTrouve == nullptr);
+				if (vGORCArc[iIterator]->ARCGetNumeroD() == uiGORNumSommetD && vGORCArc[iIterator]->ARCGetNumeroA() == uiGORNumSommetA)
+				{
+					ptrTArcArcTrouve = vGORCArc[iIterator];
+				}
+				iIterator++;
+			} while (iIterator < vGORCArc.size() && ptrTArcArcTrouve == nullptr);
+		}
 		return ptrTArcArcTrouve;
 	}
 
@@ -289,22 +296,25 @@ public :
 	* Entrée : uiGORNumSommet, le sommet recherché,
 	* uiGORNumSommet, le numéro de sommet recherché
 	* Nécessite : Rien
-	* Entraîne : L'affichage du sommet recherché s'il existe, NULL sinon
+	* Entraîne : L'affichage du sommet recherché s'il existe, NULL sinon OU
+	* (EXCEPTION): Liste vide, ce qui renvoie NULL
 ******************************************************************************************/
 
 	PSommet<TArc>* GORFindSommet(unsigned int uiGORNumSommet)
 	{
 		PSommet<TArc>* ptrPSommetSommetTrouve = nullptr;
 		size_t iIterator = 0;
-
-		do
+		if (vGORCSommet.empty() == false)
 		{
-			if (vGORCSommet[iIterator]->SOMGetNumero() == uiGORNumSommet)
+			do
 			{
-				ptrPSommetSommetTrouve = vGORCSommet[iIterator];
-			}
-			iIterator++;
-		} while (iIterator < vGORCSommet.size() && ptrPSommetSommetTrouve == nullptr);
+				if (vGORCSommet[iIterator]->SOMGetNumero() == uiGORNumSommet)
+				{
+					ptrPSommetSommetTrouve = vGORCSommet[iIterator];
+				}
+				iIterator++;
+			} while (iIterator < vGORCSommet.size() && ptrPSommetSommetTrouve == nullptr);
+		}
 		return ptrPSommetSommetTrouve;
 	}
 
