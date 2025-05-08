@@ -16,6 +16,7 @@
  * INCLUSIONS EXTERNES :
  *
  ************************************************************************************************/
+
 #include "PGraphOrient.h"
 
 template <class TArc, template <class> class TSommet>
@@ -25,5 +26,5 @@ private:
 	vector<TArc*> vGRACArc;
 	vector<TSommet<TArc>*> vGRACSommet;
 };
-
+//TODO : FAIRE CE PATRON DE CLASSE
 #endif

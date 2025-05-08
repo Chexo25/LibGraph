@@ -6,12 +6,6 @@ CArc::CArc(unsigned int uiARCNumD, unsigned int uiARCNumA)
 	uiARCNumeroSommetA = uiARCNumA;
 }
 
-CArc::~CArc()
-{
-	/*uiARCNumeroSommetD = 0;
-	uiARCNumeroSommetA = 0;*/ /// A voir si il y a besoin d'un destructeur
-}
-
 unsigned int CArc::ARCGetNumeroD()
 {
 	return uiARCNumeroSommetD;

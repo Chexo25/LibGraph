@@ -1,5 +1,18 @@
-// LibGraph.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+/************************************************************************************************
+ * FICHIER : main.cpp, l'exécution du programme commence et se termine ici
+ ************************************************************************************************
+ *
+ * ROLE : Main d'où tout le programme peut être lancé.
+ *        Contient aussi la fonction de lecture de fichier
+ *        Le main utilise les méthodes de la template PAffichage pour afficher les graphes
+ *
+ ************************************************************************************************
+ * VERSION : 1.0.0
+ * AUTEURS : Corentin BAILLE, Clément BOURDIER
+ * DATE : 08/05/2025
+ ************************************************************************************************
+ * INCLUSIONS EXTERNES :
+ ************************************************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -8,10 +21,21 @@
 #include "CArc.h"
 #include "PGraphOrient.h"
 #include "PSommet.h"
+#include "PAffichage.h"
 
 using namespace std;
 
 template <template <class> class TGraph,class TArc>
+
+/******************************************************************************************
+     * Lecturefichier
+     * --------------------------------------------------------------------------------------
+     * Entrée : sNomFichier, un fichier
+     * Nécessite : que le fichier spécifié existe
+     * Sortie : Rien
+     * Entraîne : L'ouverture du fichier et la lecture des lignes permettant l'affichge du graphe OU
+     * (EXCEPTION): le fichier ne s'est pas ouvert correctement
+ ******************************************************************************************/
 
 TGraph<TArc> * Lecturefichier(const string sNomFichier)
 {
@@ -70,13 +94,25 @@ TGraph<TArc> * Lecturefichier(const string sNomFichier)
 
 int main()
 {
-    cout << "Hello World!\n";
-
     const string sFichier = "TestLectureGraph.txt";
-    PGraphOrient<CArc> * Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);//Todo faire marcher cette appel
+    try {
+        PGraphOrient<CArc>* Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);
 
+        if (!Graph->GORHasSommets()) {
+            throw logic_error("Le graphe ne contient pas de sommets");
+        }
+
+        if (!Graph->GORHasArcs()) {
+            throw logic_error("Le graphe ne contient pas d'arcs");
+        }
+
+        PAffichage<PGraphOrient<CArc>, CArc> affichage;
+        //affichage.AFFAfficheSommetsEtArcs(*Graph); //appeler la méthode d'affichage des sommets et arcs du graphe
+        affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
+        delete Graph;
+    }
+    catch (const exception& e) {
+        cerr << "Erreur : " << e.what() << endl;
+    }
     return 0;
 }
-
-//todo : enlever les pointeurs parce que Hugo l'a dit (mettre des . à la place des -> aussi du coup) 
-// Eh, non ? Sinon ca copy un objet entier, et vaut mieux passe par des addresses pour bcp de choses

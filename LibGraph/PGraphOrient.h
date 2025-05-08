@@ -9,9 +9,9 @@
  *		  Elle permet d'effectuer des opérations de base sur un graphe orienté ainsi que sur ses arcs et sommets.
  *
  ************************************************************************************************
- * VERSION : 0.0.6
+ * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 07/05/2025
+ * DATE : 08/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  * 
@@ -360,6 +360,29 @@ public :
 		}
 	}
 
+/******************************************************************************************
+	* GORHasSommets
+	* --------------------------------------------------------------------------------------
+	* Entrée : Rien
+	* Sortie : Un booléen
+	* Entraîne : Retourne un booléen qui définit si un graphe contient des sommets ou non
+******************************************************************************************/
+
+	bool GORHasSommets() const {
+		return !vGORCSommet.empty();
+	}
+
+/******************************************************************************************
+	* GORHasArcs
+	* --------------------------------------------------------------------------------------
+	* Entrée : Rien
+	* Sortie : Un booléen
+	* Entraîne : Retourne un booléen qui définit si un graphe contient des arcs ou non
+******************************************************************************************/
+
+	bool GORHasArcs() const {
+		return !vGORCArc.empty();
+	}
 
 };
 

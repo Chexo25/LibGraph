@@ -7,12 +7,12 @@
  *
  * ROLE : Interface du patron de classe PSommet
  *        Ce paton de classe permet de définir des sommets
- *		  ...
+ *		  Il permet des manipulations de base sur un sommet
  *
  ************************************************************************************************
- * VERSION : 0.0.6
+ * VERSION : 1.0.0
  * AUTEUR : Corentin BAILLE, Clement BOURDIER
- * DATE : 07/05/2025
+ * DATE : 08/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  *
@@ -32,7 +32,14 @@ private:
 	vector<TArc*> vSOMArcA;
 
 public:
-	//CONSTRUCTEUR ET DESTRUCTEUR
+	//CONSTRUCTEURS ET DESTRUCTEUR
+	PSommet()
+	{
+		uiSOMNumero = -1;
+		vSOMArcA = vector<TArc*>();
+		vSOMArcD = vector<TArc*>();
+	}
+
 	PSommet(unsigned int uiSOMNewNumero)
 	{
 		uiSOMNumero = uiSOMNewNumero;

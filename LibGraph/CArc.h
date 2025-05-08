@@ -10,15 +10,15 @@
  *		  Elle permet d'effectuer des manipulations de base d'un arc.
  *
  ************************************************************************************************
- * VERSION : 0.0.3
+ * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 02/04/2025
+ * DATE : 08/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
- *
  ************************************************************************************************/
 #include <iostream>
 #include <utility>
+
 using namespace std; 
 
 class CArc
@@ -31,7 +31,6 @@ private:
 //CONSTRUCTEURS ET DESTRUCTEURS :
 public:
 	CArc(unsigned int uiARCNumD, unsigned int uiARCNumA);
-	~CArc();
 
 //METHODES :
 
