@@ -68,7 +68,7 @@ public :
 	 * (EXCEPTION): le sommet d'arrivée n'existe pas
  ******************************************************************************************/
 
-	void GORAjouterArc(TArc* CArcGORNewArc)
+	virtual void GORAjouterArc(TArc* CArcGORNewArc)
 	{
 		if (find(vGORCArc.begin(), vGORCArc.end(), CArcGORNewArc) != vGORCArc.end()) {
 			throw invalid_argument("Arc deja existant !");
@@ -102,7 +102,7 @@ public :
 	* (EXCEPTION) : SommetD et SommetA identiques
 ******************************************************************************************/
 
-	void GORModifierArc(TArc* CArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA)
+	virtual void GORModifierArc(TArc* CArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA)
 	{
 		if (find(vGORCArc.begin(), vGORCArc.end(), CArcGORArc) == vGORCArc.end())
 		{
@@ -272,7 +272,7 @@ public :
 	* (EXCEPTION): Liste vide, ce qui renvoie NULL
 ******************************************************************************************/
 
-	TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
+	virtual TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
 	{
 		TArc* ptrTArcArcTrouve = nullptr;
 		size_t iIterator = 0;

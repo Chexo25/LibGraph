@@ -31,7 +31,7 @@ using namespace std;
 template <class TGraph, class TArc>
 class PAffichage {
 
-public: 
+public:
 
 /******************************************************************************************
 	 * AFFAfficheSommetsEtArcs
