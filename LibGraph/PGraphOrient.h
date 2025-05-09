@@ -33,12 +33,9 @@ private :
 
 //CONSTRUCTEURS ET DESTRUCTEURS
 public :
-	
-	template<class TArc>
-	PGraphOrient() {
 
-	}
-	PGraphOrient<TArc>() {
+	PGraphOrient<TArc>() 
+	{
 
 	}
 	PGraphOrient(vector<TArc*> vGORCArc, vector<PSommet<TArc>*> vGORCSommet)
@@ -54,6 +51,10 @@ public :
 
 
 //METHODES
+
+	vector<TArc*>& GORGetvGORCArc() {
+		return vGORCArc;
+	}
 
 /******************************************************************************************
 	 * GORAjouterArc
