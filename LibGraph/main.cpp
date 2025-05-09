@@ -20,6 +20,7 @@
 
 #include "CArc.h"
 #include "PGraphOrient.h"
+#include "PGraph.h"
 #include "PSommet.h"
 #include "PAffichage.h"
 
@@ -96,7 +97,7 @@ int main()
 {
     const string sFichier = "TestLectureGraph.txt";
     try {
-        PGraphOrient<CArc>* Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);
+        PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier);
 
         if (!Graph->GORHasSommets()) {
             throw logic_error("Le graphe ne contient pas de sommets");
@@ -106,7 +107,7 @@ int main()
             throw logic_error("Le graphe ne contient pas d'arcs");
         }
 
-        PAffichage<PGraphOrient<CArc>, CArc> affichage;
+        PAffichage<PGraph<CArc>, CArc> affichage;
         affichage.AFFAfficheSommetsEtArcs(*Graph); //appeler la méthode d'affichage des sommets et arcs du graphe
         //affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
         delete Graph;

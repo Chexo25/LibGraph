@@ -52,6 +52,7 @@ public :
 
 //METHODES
 
+	//Getter de vGORCArc
 	vector<TArc*>& GORGetvGORCArc() {
 		return vGORCArc;
 	}
@@ -117,10 +118,10 @@ public :
 		{
 			throw invalid_argument("Arc deja existant");
 		}
-		if (find(vGORCSommet.begin(), vGORCSommet.end(), uiGORSommetD) == vGORCSommet.end()) {
+		if (GORFindSommet(uiGORSommetD) == nullptr) {
 			throw invalid_argument("Sommet de depart non existant");
 		}
-		if (find(vGORCSommet.begin(), vGORCSommet.end(), uiGORSommetA) == vGORCSommet.end()) {
+		if (GORFindSommet(uiGORSommetA) == nullptr) {
 			throw invalid_argument("Sommet d'arrivee non existant");
 		}
 
