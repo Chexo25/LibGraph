@@ -153,7 +153,7 @@ public :
 	* (EXCEPTION): arc non existant
 ******************************************************************************************/
 
-	void GORSupprimerArc(TArc* CArcGORArc)
+	virtual void GORSupprimerArc(TArc* CArcGORArc)
 	{
 		if (find(vGORCArc.begin(), vGORCArc.end(), CArcGORArc) == vGORCArc.end())
 		{
@@ -272,7 +272,7 @@ public :
 	* (EXCEPTION): Liste vide, ce qui renvoie NULL
 ******************************************************************************************/
 
-	virtual TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
+	TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
 	{
 		TArc* ptrTArcArcTrouve = nullptr;
 		size_t iIterator = 0;
