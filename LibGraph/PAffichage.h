@@ -1,5 +1,5 @@
-#ifndef CAFFICHAGE_H
-#define CAFFICHAGE_H
+#ifndef PAFFICHAGE_H
+#define PAFFICHAGE_H
 
 /************************************************************************************************
  * PATRON DE CLASSE : Patron de classe pour afficher un graphe de différentes manières
@@ -47,7 +47,7 @@ public:
 	{
 		vector<PSommet<TArc>*> vSommet = TGraphAFFGraphe.GORGetSommet();
 		vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();
-		size_t uiSizevArc = vArc.size();
+		size_t stSizevArc = vArc.size();
 		
 		printf("voici la liste des sommets du graphe :\n");
 
@@ -60,21 +60,21 @@ public:
 		{
 			throw logic_error("Le graphe ne contient aucun arc");
 		}
-		size_t uiSizevSommet = vSommet.size();
-		for (size_t uiIndex = 0; uiIndex < uiSizevSommet; uiIndex++)
+		size_t stSizevSommet = vSommet.size();
+		for (size_t stIndex = 0; stIndex < stSizevSommet; stIndex++)
 		{
-			cout << vSommet[uiIndex]->SOMGetNumero() << "\n" << endl;
+			cout << vSommet[stIndex]->SOMGetNumero() << "\n" << endl;
 		}
-		printf("Voici la liste des arcs du graphe,"
+		printf("Voici la liste des arcs du graphe, "
 			   "chaque arc est represente par son sommet de depart et son sommet d'arrivee.\n" 
 			   "Dans le cas d'un graphe non oriente, " 
-			   "il existera un arc allant du sommet de depart a celui d'arrivee" 
+			   "il existera un arc allant du sommet de depart a celui d'arrivee " 
 			   "et un allant du sommet d'arrivee a celui de depart.\n");
-		for (size_t uiIndex = 0; uiIndex < uiSizevArc; uiIndex++)
+		for (size_t stIndex = 0; stIndex < stSizevArc; stIndex++)
 		{
-			cout << "Arc" << uiIndex << " : " 
-			<< vArc[uiIndex]->ARCGetNumeroD() << " -> " 
-			<< vArc[uiIndex]->ARCGetNumeroA() << "\n" << endl;
+			cout << "Arc" << stIndex << " : " 
+			<< vArc[stIndex]->ARCGetNumeroD() << " -> " 
+			<< vArc[stIndex]->ARCGetNumeroA() << "\n" << endl;
 		}
 	}
 
@@ -93,8 +93,8 @@ public:
 		//On récupère les vecteurs contenant les listes d'arcs et de sommets
 		vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();
 		vector<PSommet<TArc>*> vSommet = TGraphAFFGraphe.GORGetSommet();
-		size_t nbLignesColonnes = vSommet.size();
-		//Si nbLignesColonnes n'a pas été créé c'est que le type passe n'est pas un type graphe et le getter ne sera pas trouvé
+		size_t stNbLignesColonnes = vSommet.size();
+		//Si stNbLignesColonnes n'a pas été créé c'est que le type passe n'est pas un type graphe et le getter ne sera pas trouvé
 		if (vSommet.empty()) {
 			throw logic_error("Le graphe ne contient aucun sommet");
 		}
@@ -104,18 +104,18 @@ public:
 
 		//On associe un index à un numéro de sommet dans la matrice, 
 		//afin que les numéros de sommets puissent être différents des index de colonnes de la matric
-		unordered_map<unsigned int, int> indexMap;
-		for (int uiIndex = 0; uiIndex < nbLignesColonnes; ++uiIndex) {
-			indexMap[vSommet[uiIndex]->SOMGetNumero()] = uiIndex;
+		unordered_map<unsigned int, int> unIndexMap;
+		for (int stIndex = 0; stIndex < stNbLignesColonnes; ++stIndex) {
+			unIndexMap[vSommet[stIndex]->SOMGetNumero()] = stIndex;
 		}	
 
 		//On remplit la matrice de 0, et on met des 1 la ou il y a bien un arc entre les sommets
-		vector<vector<unsigned int>> vvuiMatrice(nbLignesColonnes, vector<unsigned int>(nbLignesColonnes, 0));
-		for (size_t uiIndex = 0; uiIndex < vArc.size(); ++uiIndex) {
-			TArc* TArcArc = vArc[uiIndex];
-			size_t uiIndexLigne = indexMap[TArcArc->ARCGetNumeroD()];
-			size_t uiIndexColonne = indexMap[TArcArc->ARCGetNumeroA()];
-			vvuiMatrice[uiIndexLigne][uiIndexColonne] = 1;
+		vector<vector<unsigned int>> vvuiMatrice(stNbLignesColonnes, vector<unsigned int>(stNbLignesColonnes, 0));
+		for (size_t stIndex = 0; stIndex < vArc.size(); ++stIndex) {
+			TArc* TArcArc = vArc[stIndex];
+			size_t stIndexLigne = unIndexMap[TArcArc->ARCGetNumeroD()];
+			size_t stIndexColonne = unIndexMap[TArcArc->ARCGetNumeroA()];
+			vvuiMatrice[stIndexLigne][stIndexColonne] = 1;
 		}
 
 		//Affichage console de la matrice
@@ -128,17 +128,17 @@ public:
 
 		cout << "\n    ";
 
-		for (int i = 0; i < nbLignesColonnes; ++i)
+		for (int i = 0; i < stNbLignesColonnes; ++i)
 		{
 			cout << "----";
 		}
 
 		cout << "\n";
 
-		for (int i = 0; i < nbLignesColonnes; ++i)
+		for (int i = 0; i < stNbLignesColonnes; ++i)
 		{
 			cout << setw(3) << vSommet[i]->SOMGetNumero() << "|";
-			for (int j = 0; j < nbLignesColonnes; ++j)
+			for (int j = 0; j < stNbLignesColonnes; ++j)
 			{
 				cout << setw(4) << vvuiMatrice[i][j];
 			}

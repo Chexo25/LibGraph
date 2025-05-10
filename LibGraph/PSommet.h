@@ -1,5 +1,5 @@
-#ifndef CSOMMET_H
-#define CSOMMET_H
+#ifndef PSOMMET_H
+#define PSOMMET_H
 
 /************************************************************************************************
  * PATRON DE CLASSE : Patron de classe permettant de définir des sommets
