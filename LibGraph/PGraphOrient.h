@@ -2,20 +2,20 @@
 #define PGRAPHORIENT_H
 
 /************************************************************************************************
- * CLASSE : Classe pour manipulations de base d'un graphe orienté
+ * PATRON DE CLASSE : Patron de classe pour manipulations de base d'un graphe orienté
  ************************************************************************************************
  *
- * ROLE : Interface de la classe PGraphOrient
- *		  Elle permet d'effectuer des opérations de base sur un graphe orienté ainsi que sur ses arcs et sommets.
+ * ROLE : Interface du patron de classe PGraphOrient
+ *		  Il permet d'effectuer des opérations de base sur un graphe orienté ainsi que sur ses arcs et sommets.
  *
  ************************************************************************************************
  * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 08/05/2025
+ * DATE : 10/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
- * 
  ************************************************************************************************/
+
 #include <vector>
 
 #include "PSommet.h"
@@ -71,14 +71,21 @@ public :
  ******************************************************************************************/
 
 	virtual void GORAjouterArc(TArc* CArcGORNewArc)
-	{
-		if (find(vGORCArc.begin(), vGORCArc.end(), CArcGORNewArc) != vGORCArc.end()) {
+	{	
+		if (CArcGORNewArc->ARCGetNumeroD() == CArcGORNewArc->ARCGetNumeroA())
+		{
+			throw invalid_argument("Sommet d'arrivee identique a celui de depart");
+		}
+		if (GORFindArc(CArcGORNewArc->ARCGetNumeroD(), CArcGORNewArc->ARCGetNumeroA()) != nullptr)
+		{
 			throw invalid_argument("Arc deja existant !");
 		}
-		if (GORFindSommet(CArcGORNewArc->ARCGetNumeroD()) == nullptr) {
+		if (GORFindSommet(CArcGORNewArc->ARCGetNumeroD()) == nullptr) 
+		{
 			throw invalid_argument("Sommet de depart non existant");
 		}
-		if (GORFindSommet(CArcGORNewArc->ARCGetNumeroA()) == nullptr) {
+		if (GORFindSommet(CArcGORNewArc->ARCGetNumeroA()) == nullptr) 
+		{
 			throw invalid_argument("Sommet d'arrivee non existant");
 		}
 
@@ -321,6 +328,60 @@ public :
 	}
 
 /******************************************************************************************
+	* GORInverseAllArc
+	* --------------------------------------------------------------------------------------
+	* Entrée : Rien
+	* Nécessite : D'être appelée sur un graphe orienté
+	* Entraîne : L'inversion de tous les arcs du graphe
+******************************************************************************************/
+
+	//la méthode est virtuelle afin d'empêcher son utilisation sur un PGraph (inutile d'inverser un graphe non orienté)
+	virtual void GORInverseAllArc()
+	{
+		for (PSommet<TArc>* sommet : vGORCSommet)
+		{
+			// On récupère les arcs à supprimer
+			vector<TArc*> vArcD = sommet->SOMGetArcD();
+			vector<TArc*> vArcA = sommet->SOMGetArcA();
+
+			for (TArc* arc : vArcD)
+			{
+				sommet->SOMSupprArcD(arc);
+			}
+			for (TArc* arc : vArcA)
+			{
+				sommet->SOMSupprArcA(arc);
+			}
+		}
+
+		//On garde les anciens arcs pour pouvoir les remplacer
+		vector<TArc*> anciensArcs = vGORCArc;
+
+		// On vide le vector d'arcs pour lui donner les arcs inverses
+		vGORCArc.clear();
+		for (TArc* arc : anciensArcs)
+		{
+			TArc* arcInverse = arc->ARCArcInverse();
+
+			unsigned int numD = arcInverse->ARCGetNumeroD();
+			unsigned int numA = arcInverse->ARCGetNumeroA();
+
+			PSommet<TArc>* sommetD = this->GORFindSommet(numD);
+			PSommet<TArc>* sommetA = this->GORFindSommet(numA);
+
+			if (sommetD && sommetA)
+			{
+				sommetD->SOMAjoutArcD(arcInverse);
+				sommetA->SOMAjoutArcA(arcInverse);
+				vGORCArc.push_back(arcInverse);
+			}
+			//On supprime l'ancien arc
+			delete arc; 
+		}
+
+	}
+
+/******************************************************************************************
 	* GORGetArc
 	* --------------------------------------------------------------------------------------
 	* Entrée : Rien
@@ -331,14 +392,7 @@ public :
 
 	vector<TArc*> GORGetArc()
 	{
-		if (vGORCArc.empty())
-		{
-			throw invalid_argument("Vector vide");
-		}
-		else
-		{
-			return vGORCArc;
-		}
+		return vGORCArc;
 	}
 
 /******************************************************************************************
@@ -352,14 +406,7 @@ public :
 
 	vector<PSommet<TArc>*> GORGetSommet()
 	{
-		if (vGORCSommet.empty())
-		{
-			throw invalid_argument("Vector vide");
-		}
-		else
-		{
-			return vGORCSommet;
-		}
+		return vGORCSommet;
 	}
 
 /******************************************************************************************

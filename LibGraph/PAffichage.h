@@ -13,11 +13,11 @@
  ************************************************************************************************
  * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 08/05/2025
+ * DATE : 10/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
- *
  ************************************************************************************************/
+
 #include "PGraphOrient.h"
 #include "PSommet.h"
 
@@ -45,21 +45,31 @@ public:
 	
 	void AFFAfficheSommetsEtArcs(TGraph& TGraphAFFGraphe)
 	{
-		printf("voici la liste des sommets du graphe :\n");
 		vector<PSommet<TArc>*> vSommet = TGraphAFFGraphe.GORGetSommet();
+		vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();
+		size_t uiSizevArc = vArc.size();
+		
+		printf("voici la liste des sommets du graphe :\n");
+
 		//Si le type n'est pas un graphe, le getter ne sera pas trouvé
 		if (vSommet.empty()) 
 		{
-			throw invalid_argument("Le graphe ne contient aucun sommet");
+			throw logic_error("Le graphe ne contient aucun sommet");
+		}
+		if (vArc.empty()) 
+		{
+			throw logic_error("Le graphe ne contient aucun arc");
 		}
 		size_t uiSizevSommet = vSommet.size();
 		for (size_t uiIndex = 0; uiIndex < uiSizevSommet; uiIndex++)
 		{
 			cout << vSommet[uiIndex]->SOMGetNumero() << "\n" << endl;
 		}
-		printf("voici la liste des arcs du graphe, chaque arc est represente par son sommet de depart et son sommet d'arrivee\n");
-		vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();
-		size_t uiSizevArc = vArc.size();
+		printf("Voici la liste des arcs du graphe,"
+			   "chaque arc est represente par son sommet de depart et son sommet d'arrivee.\n" 
+			   "Dans le cas d'un graphe non oriente, " 
+			   "il existera un arc allant du sommet de depart a celui d'arrivee" 
+			   "et un allant du sommet d'arrivee a celui de depart.\n");
 		for (size_t uiIndex = 0; uiIndex < uiSizevArc; uiIndex++)
 		{
 			cout << "Arc" << uiIndex << " : " 
@@ -86,10 +96,14 @@ public:
 		size_t nbLignesColonnes = vSommet.size();
 		//Si nbLignesColonnes n'a pas été créé c'est que le type passe n'est pas un type graphe et le getter ne sera pas trouvé
 		if (vSommet.empty()) {
-			throw invalid_argument("Le graphe ne contient aucun sommet");
+			throw logic_error("Le graphe ne contient aucun sommet");
+		}
+		if (vArc.empty()) {
+			throw logic_error("Le graphe ne contient aucun arc");
 		}
 
-		//On associe un index à un numéro de sommet dans la matrice
+		//On associe un index à un numéro de sommet dans la matrice, 
+		//afin que les numéros de sommets puissent être différents des index de colonnes de la matric
 		unordered_map<unsigned int, int> indexMap;
 		for (int uiIndex = 0; uiIndex < nbLignesColonnes; ++uiIndex) {
 			indexMap[vSommet[uiIndex]->SOMGetNumero()] = uiIndex;
@@ -104,8 +118,7 @@ public:
 			vvuiMatrice[uiIndexLigne][uiIndexColonne] = 1;
 		}
 
-		//Affichage de la matrice
-
+		//Affichage console de la matrice
 		cout << "\n    ";
 
 		for (PSommet<TArc>* sommet : vSommet)

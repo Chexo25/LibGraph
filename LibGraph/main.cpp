@@ -9,7 +9,7 @@
  ************************************************************************************************
  * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 08/05/2025
+ * DATE : 10/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  ************************************************************************************************/
@@ -76,7 +76,7 @@ TGraph<TArc> * Lecturefichier(const string sNomFichier)
     getline(fFichier, sBuffer);
     unsigned int uiSommetD;
     unsigned int uiSommetA;
-    for (iIterator = 0; iIterator < iNbrSommet; iIterator++)
+    for (iIterator = 0; iIterator < iNbrArc; iIterator++)
     {
         getline(fFichier, sBuffer);
 
@@ -97,19 +97,21 @@ int main()
 {
     const string sFichier = "TestLectureGraph.txt";
     try {
-        PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier);
+        PGraphOrient<CArc>* Graph = Lecturefichier<PGraphOrient, CArc>(sFichier);
+        PAffichage<PGraphOrient<CArc>, CArc> affichage;
 
-        if (!Graph->GORHasSommets()) {
-            throw logic_error("Le graphe ne contient pas de sommets");
-        }
-
-        if (!Graph->GORHasArcs()) {
-            throw logic_error("Le graphe ne contient pas d'arcs");
-        }
-
-        PAffichage<PGraph<CArc>, CArc> affichage;
+        cout << "affichage avant inversion\n" << endl;
+        
         affichage.AFFAfficheSommetsEtArcs(*Graph); //appeler la méthode d'affichage des sommets et arcs du graphe
-        //affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
+        affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
+        
+        Graph->GORInverseAllArc();
+        
+        cout << "\naffichage apres inversion\n" << endl;
+        
+        affichage.AFFAfficheSommetsEtArcs(*Graph); //appeler la méthode d'affichage des sommets et arcs du graphe
+        affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
+        
         delete Graph;
     }
     catch (const exception& e) {

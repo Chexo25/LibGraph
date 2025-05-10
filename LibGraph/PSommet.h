@@ -12,11 +12,11 @@
  ************************************************************************************************
  * VERSION : 1.0.0
  * AUTEUR : Corentin BAILLE, Clement BOURDIER
- * DATE : 08/05/2025
+ * DATE : 10/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
- *
  ************************************************************************************************/
+
 #include <vector>
 #include "CArc.h"
 
@@ -122,14 +122,7 @@ public:
 	
 	vector<TArc*> SOMGetArcD()
 	{
-		if (vSOMArcD.empty())
-		{
-			throw invalid_argument("Vector vide");
-		}
-		else
-		{
-			return vSOMArcD;
-		}
+		return vSOMArcD;
 	}
 
 	/******************************************************************************************
@@ -191,14 +184,7 @@ public:
 	
 	vector<TArc*> SOMGetArcA()
 	{
-		if (vSOMArcA.empty())
-		{
-			throw invalid_argument("Vector vide");
-		}
-		else
-		{
-			return vSOMArcA;
-		}
+		return vSOMArcA;
 	}
 
 	/******************************************************************************************
@@ -221,7 +207,7 @@ public:
 		}
 		else
 		{
-			throw invalid_argument("Arc non existant dans la liste d arrive !");
+			throw invalid_argument("Arc non existant dans la liste d'arrivee !");
 		}
 	}
 

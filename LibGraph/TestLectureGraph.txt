@@ -1,12 +1,23 @@
-NBSommets=3
-NBArcs=3
+NBSommets=8
+NBArcs=9
 Sommets=[
 Numero=7
 Numero=10
 Numero=123
+Numero=12
+Numero=89
+Numero=70
+Numero=44
+Numero=69
 ]
 Arcs=[
 Debut=7, Fin=10
 Debut=123, Fin=7
 Debut=10, Fin=123
+Debut=69, Fin=44
+Debut=89, Fin=70
+Debut=70, Fin=7
+Debut=123, Fin=12
+Debut=44, Fin=70
+Debut=7, Fin=70
 ]
