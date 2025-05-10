@@ -1,5 +1,5 @@
 NBSommets=8
-NBArcs=9
+NBArcs=8
 Sommets=[
 Numero=7
 Numero=10
@@ -19,5 +19,4 @@ Debut=89, Fin=70
 Debut=70, Fin=7
 Debut=123, Fin=12
 Debut=44, Fin=70
-Debut=7, Fin=70
 ]

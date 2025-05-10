@@ -1,30 +1,30 @@
 template <class TArc>
-void PGraph<TArc>::GORAjouterArc(TArc* CArcGRANewArc)
+void PGraph<TArc>::GORAjouterArc(TArc* TArcGRANewArc)
 {
-	vector<TArc*>& vTArc = this->GORGetvGORCArc();
-	if (CArcGRANewArc->ARCGetNumeroD() == CArcGRANewArc->ARCGetNumeroA())
+	vector<TArc*>& vTArc = this->GORGetvGORTArc();
+	if (TArcGRANewArc->ARCGetNumeroD() == TArcGRANewArc->ARCGetNumeroA())
 	{
 		throw invalid_argument("Sommets identiques");
 	}
-	if (GORFindArc(CArcGRANewArc->ARCGetNumeroD(), CArcGRANewArc->ARCGetNumeroA()) != nullptr)
+	if (GORFindArc(TArcGRANewArc->ARCGetNumeroD(), TArcGRANewArc->ARCGetNumeroA()) != nullptr)
 	{
 		throw invalid_argument("Arc deja existant !");
 	}
-	if (this->GORFindSommet(CArcGRANewArc->ARCGetNumeroD()) == nullptr)
+	if (this->GORFindSommet(TArcGRANewArc->ARCGetNumeroD()) == nullptr)
 	{
 		throw invalid_argument("Sommet 1 non existant");
 	}
-	if (this->GORFindSommet(CArcGRANewArc->ARCGetNumeroA()) == nullptr)
+	if (this->GORFindSommet(TArcGRANewArc->ARCGetNumeroA()) == nullptr)
 	{
 		throw invalid_argument("Sommet 2 non existant");
 	}
 
-	this->GORFindSommet(CArcGRANewArc->ARCGetNumeroD())->SOMAjoutArcD(CArcGRANewArc);
-	this->GORFindSommet(CArcGRANewArc->ARCGetNumeroA())->SOMAjoutArcA(CArcGRANewArc);
+	this->GORFindSommet(TArcGRANewArc->ARCGetNumeroD())->SOMAjoutArcD(TArcGRANewArc);
+	this->GORFindSommet(TArcGRANewArc->ARCGetNumeroA())->SOMAjoutArcA(TArcGRANewArc);
 
-	vTArc.push_back(CArcGRANewArc);
+	vTArc.push_back(TArcGRANewArc);
 
-	TArc* TArcGRAArcInverse = CArcGRANewArc->ARCArcInverse();
+	TArc* TArcGRAArcInverse = TArcGRANewArc->ARCArcInverse();
 
 	this->GORFindSommet(TArcGRAArcInverse->ARCGetNumeroD())->SOMAjoutArcD(TArcGRAArcInverse);
 	this->GORFindSommet(TArcGRAArcInverse->ARCGetNumeroA())->SOMAjoutArcA(TArcGRAArcInverse);
@@ -98,7 +98,7 @@ void PGraph<TArc>::GORModifierArc(TArc* TArcGRAArc, unsigned int uiGRASommetD, u
 template <class TArc>
 void PGraph<TArc>::GORSupprimerArc(TArc* TArcGRAArc)
 {
-	vector<TArc*>& vTArc = this->GORGetvGORCArc();
+	vector<TArc*>& vTArc = this->GORGetvGORTArc();
 	if (GORFindArc(TArcGRAArc->ARCGetNumeroD(), TArcGRAArc->ARCGetNumeroA()) == nullptr)
 	{
 		throw invalid_argument("Arc non present dans le graphe");
@@ -135,7 +135,7 @@ void PGraph<TArc>::GORSupprimerArc(TArc* TArcGRAArc)
 template <class TArc>
 TArc* PGraph<TArc>:: GORFindArc(unsigned int uiGRANumSommetD, unsigned int uiGRANumSommetA)
 {
-	vector<TArc*>& vTArc = this->GORGetvGORCArc();
+	vector<TArc*>& vTArc = this->GORGetvGORTArc();
 	TArc* ptrTArcArcTrouve = nullptr;
 	size_t stIterator = 0;
 	if (uiGRANumSommetD == uiGRANumSommetA)

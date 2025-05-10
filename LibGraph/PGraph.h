@@ -39,7 +39,7 @@ public:
 		* (EXCEPTION): le sommet 2 n'existe pas
 ******************************************************************************************/
 
-	virtual void GORAjouterArc(TArc* CArcGRANewArc);
+	virtual void GORAjouterArc(TArc* TArcGRANewArc);
 
 /******************************************************************************************
 	* GORModifierArc redéfinie
