@@ -96,8 +96,10 @@ int main()
 {
     const string sFichier = "TestLectureGraph.txt";
     try {
-        PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier);
-        PAffichage<PGraph<CArc>, CArc> affichage;
+        //PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier); //Graphe non orienté
+        //PAffichage<PGraph<CArc>, CArc> affichage;
+        PGraphOrient<CArc>* Graph = Lecturefichier<PGraphOrient, CArc>(sFichier); //Graphe orienté
+        PAffichage<PGraphOrient<CArc>, CArc> affichage;
 
         cout << "affichage avant inversion\n" << endl;
         
