@@ -41,7 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PAffichage.th">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="PGraph.th">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="PGraphOrient.th">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="PSommet.th">
+      <Filter>Fichiers d%27en-tête</Filter>
     </None>
   </ItemGroup>
 </Project>

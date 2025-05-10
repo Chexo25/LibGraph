@@ -151,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PAffichage.th" />
+    <None Include="PGraph.th" />
+    <None Include="PGraphOrient.th" />
+    <None Include="PSommet.th" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

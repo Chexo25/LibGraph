@@ -1,5 +1,5 @@
-#ifndef PAFFICHAGE_H
-#define PAFFICHAGE_H
+#ifndef PAFFICHAGE_TH
+#define PAFFICHAGE_TH
 
 /************************************************************************************************
  * PATRON DE CLASSE : Patron de classe pour afficher un graphe de différentes manières

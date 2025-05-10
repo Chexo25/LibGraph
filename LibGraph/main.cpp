@@ -5,7 +5,6 @@
  * ROLE : Main d'où tout le programme peut être lancé.
  *        Contient aussi la fonction de lecture de fichier
  *        Le main utilise les méthodes de la template PAffichage pour afficher les graphes
-
  ************************************************************************************************
  * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER

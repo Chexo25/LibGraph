@@ -26,36 +26,23 @@ using namespace std;
 template <class TArc>
 class PGraphOrient
 {
-//ATTRIBUTS
-private :
+	//ATTRIBUTS
+private:
 	vector<TArc*> vGORTArc;
 	vector<PSommet<TArc>*> vGORPSommet;
 
-//CONSTRUCTEURS ET DESTRUCTEURS
-public :
+	//CONSTRUCTEURS ET DESTRUCTEURS
+public:
 
-	PGraphOrient<TArc>() 
-	{
-
-	}
-	PGraphOrient(vector<TArc*> vGORTArc, vector<PSommet<TArc>*> vGORPSommet)
-	{
-		this->vGORTArc = vGORTArc;
-		this->vGORPSommet = vGORPSommet;
-	}
-	~PGraphOrient()
-	{
-		vGORTArc.clear();
-		vGORPSommet.clear();
-	}
+	PGraphOrient<TArc>();
+	PGraphOrient(vector<TArc*> vGORTArc, vector<PSommet<TArc>*> vGORPSommet);
+	~PGraphOrient();
 
 
-//METHODES
+	//METHODES
 
 	//Getter de vGORTArc
-	vector<TArc*>& GORGetvGORTArc() {
-		return vGORTArc;
-	}
+	vector<TArc*>& GORGetvGORTArc();
 
 /******************************************************************************************
 	 * GORAjouterArc
@@ -70,30 +57,7 @@ public :
 	 * (EXCEPTION): le sommet d'arrivée n'existe pas
  ******************************************************************************************/
 
-	virtual void GORAjouterArc(TArc* TArcGORNewArc)
-	{	
-		if (TArcGORNewArc->ARCGetNumeroD() == TArcGORNewArc->ARCGetNumeroA())
-		{
-			throw invalid_argument("Sommet d'arrivee identique a celui de depart");
-		}
-		if (GORFindArc(TArcGORNewArc->ARCGetNumeroD(), TArcGORNewArc->ARCGetNumeroA()) != nullptr)
-		{
-			throw invalid_argument("Arc deja existant !");
-		}
-		if (GORFindSommet(TArcGORNewArc->ARCGetNumeroD()) == nullptr) 
-		{
-			throw invalid_argument("Sommet de depart non existant");
-		}
-		if (GORFindSommet(TArcGORNewArc->ARCGetNumeroA()) == nullptr) 
-		{
-			throw invalid_argument("Sommet d'arrivee non existant");
-		}
-
-		GORFindSommet(TArcGORNewArc->ARCGetNumeroD())->SOMAjoutArcD(TArcGORNewArc);
-		GORFindSommet(TArcGORNewArc->ARCGetNumeroA())->SOMAjoutArcA(TArcGORNewArc);
-
-		vGORTArc.push_back(TArcGORNewArc);
-	}
+	virtual void GORAjouterArc(TArc* TArcGORNewArc);
 
 /******************************************************************************************
 	* GORModifierArc
@@ -111,46 +75,7 @@ public :
 	* (EXCEPTION) : SommetD et SommetA identiques
 ******************************************************************************************/
 
-	virtual void GORModifierArc(TArc* TArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA)
-	{
-		if (find(vGORTArc.begin(), vGORTArc.end(), TArcGORArc) == vGORTArc.end())
-		{
-			throw invalid_argument("Arc non present dans le graphe");
-		}
-		if (uiGORSommetA == uiGORSommetD)
-		{
-			throw invalid_argument("Sommet d'arrivee identique a celui de depart");
-		}
-		if (GORFindArc(uiGORSommetD, uiGORSommetA) != nullptr)
-		{
-			throw invalid_argument("Arc deja existant");
-		}
-		if (GORFindSommet(uiGORSommetD) == nullptr) {
-			throw invalid_argument("Sommet de depart non existant");
-		}
-		if (GORFindSommet(uiGORSommetA) == nullptr) {
-			throw invalid_argument("Sommet d'arrivee non existant");
-		}
-
-		unsigned int iNumSommetD = TArcGORArc->ARCGetNumeroD();
-		unsigned int iNumSommetA = TArcGORArc->ARCGetNumeroA();
-
-		PSommet<TArc>* ptrPSommetD = GORFindSommet(iNumSommetD);
-		PSommet<TArc>* ptrPSommetA = GORFindSommet(iNumSommetA);
-
-		ptrPSommetD->SOMSupprArcD(TArcGORArc);
-		ptrPSommetA->SOMSupprArcA(TArcGORArc);
-
-		TArcGORArc->ARCSetNumeroD(uiGORSommetD);
-		TArcGORArc->ARCSetNumeroA(uiGORSommetA);
-
-		PSommet<TArc>* ptrPSommetnewD = GORFindSommet(uiGORSommetD);
-		PSommet<TArc>* ptrPSommetnewA = GORFindSommet(uiGORSommetA);
-
-		ptrPSommetnewD->SOMAjoutArcD(TArcGORArc);
-		ptrPSommetnewA->SOMAjoutArcA(TArcGORArc);
-
-	}
+	virtual void GORModifierArc(TArc* TArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA);
 
 /******************************************************************************************
 	* GORSupprimerArc
@@ -162,26 +87,7 @@ public :
 	* (EXCEPTION): arc non existant
 ******************************************************************************************/
 
-	virtual void GORSupprimerArc(TArc* TArcGORArc)
-	{
-		if (find(vGORTArc.begin(), vGORTArc.end(), TArcGORArc) == vGORTArc.end())
-		{
-			throw invalid_argument("Arc non present dans le graphe");
-		}
-
-		unsigned int iNumSommetD = TArcGORArc->ARCGetNumeroD();
-		unsigned int iNumSommetA = TArcGORArc->ARCGetNumeroA();
-
-		PSommet<TArc>* ptrPSommetD = GORFindSommet(iNumSommetD);
-		PSommet<TArc>* ptrPSommetA = GORFindSommet(iNumSommetA);
-
-		ptrPSommetD->SOMSupprArcD(TArcGORArc);
-		ptrPSommetA->SOMSupprArcA(TArcGORArc);
-
-		auto aIterator = find(vGORTArc.begin(), vGORTArc.end(), TArcGORArc);
-		vGORTArc.erase(aIterator);
-
-	}
+	virtual void GORSupprimerArc(TArc* TArcGORArc);
 
 /******************************************************************************************
 	 * GORAjouterSommet
@@ -193,14 +99,7 @@ public :
 	 * (EXCEPTION): Le numéro de sommet a déjà été attribué
  ******************************************************************************************/
 
-	void GORAjouterSommet(PSommet<TArc>* PSommetGORNewSommet)
-	{
-		unsigned int uiNumSommet = PSommetGORNewSommet->SOMGetNumero();
-		if (GORFindSommet(uiNumSommet) != nullptr) {
-			throw invalid_argument("Sommet deja existant");
-		}
-		this->vGORPSommet.push_back(PSommetGORNewSommet);
-	}
+	void GORAjouterSommet(PSommet<TArc>* PSommetGORNewSommet);
 
 /******************************************************************************************
 	* GORModifierSommet
@@ -213,28 +112,7 @@ public :
 	  (EXCEPTION): Le numéro de sommet a déjà été attribué
 ******************************************************************************************/
 
-	void GORModifierSommet(PSommet<TArc>* PSommetGORSommet, unsigned int uiGORNumSommet)
-	{
-		if (GORFindSommet(uiGORNumSommet) != nullptr) {
-			throw invalid_argument("Sommet deja existant");
-		}
-
-		PSommetGORSommet->SOMSetNumero(uiGORNumSommet);
-
-		int iIterator;
-
-		vector<TArc*> vArcD = PSommetGORSommet->SOMGetArcD();
-		for (iIterator = 0; iIterator < vArcD.size(); iIterator++)
-		{
-			vArcD[iIterator]->ARCSetNumeroD(uiGORNumSommet);
-		}
-
-		vector<TArc*> vArcA = PSommetGORSommet->SOMGetArcA();
-		for (iIterator = 0; iIterator < vArcA.size(); iIterator++)
-		{
-			vArcA[iIterator]->ARCSetNumeroA(uiGORNumSommet);
-		}
-	}
+	void GORModifierSommet(PSommet<TArc>* PSommetGORSommet, unsigned int uiGORNumSommet);
 
 /******************************************************************************************
 	* GORSupprimerSommet
@@ -247,29 +125,7 @@ public :
 	* (EXCEPTION): sommet non existant 
 ******************************************************************************************/
 
-	void GORSupprimerSommet(PSommet<TArc>* PSommetGORSommet)
-	{
-		if (find(vGORPSommet.begin(), vGORPSommet.end(), PSommetGORSommet) == vGORPSommet.end()) {
-			throw invalid_argument("Sommet d'arrivee non existant");
-		}
-
-		int iIterator;
-		vector<TArc*> vArcD = PSommetGORSommet->SOMGetArcD();
-		vector<TArc*> vArcA = PSommetGORSommet->SOMGetArcA();
-
-		for (iIterator = 0; iIterator < vArcD.size(); iIterator++)
-		{
-			GORSupprimerArc(vArcD[iIterator]);
-		}
-
-		for (iIterator = 0; iIterator < vArcA.size(); iIterator++)
-		{
-			GORSupprimerArc(vArcA[iIterator]);
-		}
-
-		auto aIterator = find(vGORPSommet.begin(), vGORPSommet.end(), PSommetGORSommet);
-		vGORPSommet.erase(aIterator);
-	}
+	void GORSupprimerSommet(PSommet<TArc>* PSommetGORSommet);
 
 /******************************************************************************************
 	* GORFindArc
@@ -282,23 +138,7 @@ public :
 	* (EXCEPTION): Liste vide, ce qui renvoie NULL
 ******************************************************************************************/
 
-	TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
-	{
-		TArc* ptrTArcArcTrouve = nullptr;
-		size_t stIterator = 0;
-		if (vGORTArc.empty() == false)
-		{
-			do
-			{
-				if (vGORTArc[stIterator]->ARCGetNumeroD() == uiGORNumSommetD && vGORTArc[stIterator]->ARCGetNumeroA() == uiGORNumSommetA)
-				{
-					ptrTArcArcTrouve = vGORTArc[stIterator];
-				}
-				stIterator++;
-			} while (stIterator < vGORTArc.size() && ptrTArcArcTrouve == nullptr);
-		}
-		return ptrTArcArcTrouve;
-	}
+	TArc* GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA);
 
 /******************************************************************************************
 	* GORFindSommet
@@ -311,23 +151,7 @@ public :
 	* (EXCEPTION): Liste vide, ce qui renvoie NULL
 ******************************************************************************************/
 
-	PSommet<TArc>* GORFindSommet(unsigned int uiGORNumSommet)
-	{
-		PSommet<TArc>* ptrPSommetSommetTrouve = nullptr;
-		size_t stIterator = 0;
-		if (vGORPSommet.empty() == false)
-		{
-			do
-			{
-				if (vGORPSommet[stIterator]->SOMGetNumero() == uiGORNumSommet)
-				{
-					ptrPSommetSommetTrouve = vGORPSommet[stIterator];
-				}
-				stIterator++;
-			} while (stIterator < vGORPSommet.size() && ptrPSommetSommetTrouve == nullptr);
-		}
-		return ptrPSommetSommetTrouve;
-	}
+	PSommet<TArc>* GORFindSommet(unsigned int uiGORNumSommet);
 
 /******************************************************************************************
 	* GORInverseAllArc
@@ -339,49 +163,7 @@ public :
 ******************************************************************************************/
 
 	//la méthode est virtuelle afin d'empêcher son utilisation sur un PGraph (inutile d'inverser un graphe non orienté)
-	virtual void GORInverseAllArc()
-	{
-		for (PSommet<TArc>* sommet : vGORPSommet)
-		{
-			// On récupère les arcs à supprimer
-			vector<TArc*> vArcD = sommet->SOMGetArcD();
-			vector<TArc*> vArcA = sommet->SOMGetArcA();
-
-			for (TArc* arc : vArcD)
-			{
-				sommet->SOMSupprArcD(arc);
-			}
-			for (TArc* arc : vArcA)
-			{
-				sommet->SOMSupprArcA(arc);
-			}
-		}
-
-		//On garde les anciens arcs pour pouvoir les remplacer
-		vector<TArc*> anciensArcs = vGORTArc;
-
-		//On vide le vector d'arcs pour lui donner les arcs inverses
-		vGORTArc.clear();
-		for (TArc* arc : anciensArcs)
-		{
-			TArc* arcInverse = arc->ARCArcInverse();
-
-			unsigned int numD = arcInverse->ARCGetNumeroD();
-			unsigned int numA = arcInverse->ARCGetNumeroA();
-
-			PSommet<TArc>* sommetD = this->GORFindSommet(numD);
-			PSommet<TArc>* sommetA = this->GORFindSommet(numA);
-
-			if (sommetD && sommetA)
-			{
-				sommetD->SOMAjoutArcD(arcInverse);
-				sommetA->SOMAjoutArcA(arcInverse);
-				vGORTArc.push_back(arcInverse);
-			}
-			delete arc; 
-		}
-
-	}
+	virtual void GORInverseAllArc();
 
 /******************************************************************************************
 	* GORGetArc
@@ -393,10 +175,7 @@ public :
 	* (EXCEPTION): vGORTArc est nulle
 ******************************************************************************************/
 
-	vector<TArc*> GORGetArc()
-	{
-		return vGORTArc;
-	}
+	vector<TArc*> GORGetArc();
 
 /******************************************************************************************
 	* GORGetSommet
@@ -408,11 +187,10 @@ public :
 	* (EXCEPTION): vGORPSommet est nulle
 ******************************************************************************************/
 
-	vector<PSommet<TArc>*> GORGetSommet()
-	{
-		return vGORPSommet;
-	}
+	vector<PSommet<TArc>*> GORGetSommet();
 
 };
+
+#include "PGraphOrient.th"
 
 #endif

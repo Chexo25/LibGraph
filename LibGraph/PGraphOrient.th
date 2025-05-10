@@ -1,0 +1,271 @@
+#include <vector>
+
+template <class TArc>
+PGraphOrient<TArc>::PGraphOrient()
+{
+
+}
+
+template <class TArc>
+PGraphOrient<TArc>::PGraphOrient(vector<TArc*> vGORTArc, vector<PSommet<TArc>*> vGORPSommet)
+{
+	this->vGORTArc = vGORTArc;
+	this->vGORPSommet = vGORPSommet;
+}
+
+template <class TArc>
+PGraphOrient<TArc>::~PGraphOrient()
+{
+	vGORTArc.clear();
+	vGORPSommet.clear();
+}
+
+template <class TArc>
+vector<TArc*>& PGraphOrient<TArc>::GORGetvGORTArc() 
+{
+	return vGORTArc;
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORAjouterArc(TArc* TArcGORNewArc)
+{	
+	if (TArcGORNewArc->ARCGetNumeroD() == TArcGORNewArc->ARCGetNumeroA())
+	{
+		throw invalid_argument("Sommet d'arrivee identique a celui de depart");
+	}
+	if (GORFindArc(TArcGORNewArc->ARCGetNumeroD(), TArcGORNewArc->ARCGetNumeroA()) != nullptr)
+	{
+		throw invalid_argument("Arc deja existant !");
+	}
+	if (GORFindSommet(TArcGORNewArc->ARCGetNumeroD()) == nullptr) 
+	{
+		throw invalid_argument("Sommet de depart non existant");
+	}
+	if (GORFindSommet(TArcGORNewArc->ARCGetNumeroA()) == nullptr) 
+	{
+		throw invalid_argument("Sommet d'arrivee non existant");
+	}
+
+	GORFindSommet(TArcGORNewArc->ARCGetNumeroD())->SOMAjoutArcD(TArcGORNewArc);
+	GORFindSommet(TArcGORNewArc->ARCGetNumeroA())->SOMAjoutArcA(TArcGORNewArc);
+
+	vGORTArc.push_back(TArcGORNewArc);
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORModifierArc(TArc* TArcGORArc, unsigned int uiGORSommetD, unsigned int uiGORSommetA)
+{
+	if (find(vGORTArc.begin(), vGORTArc.end(), TArcGORArc) == vGORTArc.end())
+	{
+		throw invalid_argument("Arc non present dans le graphe");
+	}
+	if (uiGORSommetA == uiGORSommetD)
+	{
+		throw invalid_argument("Sommet d'arrivee identique a celui de depart");
+	}
+	if (GORFindArc(uiGORSommetD, uiGORSommetA) != nullptr)
+	{
+		throw invalid_argument("Arc deja existant");
+	}
+	if (GORFindSommet(uiGORSommetD) == nullptr) {
+		throw invalid_argument("Sommet de depart non existant");
+	}
+	if (GORFindSommet(uiGORSommetA) == nullptr) {
+		throw invalid_argument("Sommet d'arrivee non existant");
+	}
+
+	unsigned int iNumSommetD = TArcGORArc->ARCGetNumeroD();
+	unsigned int iNumSommetA = TArcGORArc->ARCGetNumeroA();
+
+	PSommet<TArc>* ptrPSommetD = GORFindSommet(iNumSommetD);
+	PSommet<TArc>* ptrPSommetA = GORFindSommet(iNumSommetA);
+
+	ptrPSommetD->SOMSupprArcD(TArcGORArc);
+	ptrPSommetA->SOMSupprArcA(TArcGORArc);
+
+	TArcGORArc->ARCSetNumeroD(uiGORSommetD);
+	TArcGORArc->ARCSetNumeroA(uiGORSommetA);
+
+	PSommet<TArc>* ptrPSommetnewD = GORFindSommet(uiGORSommetD);
+	PSommet<TArc>* ptrPSommetnewA = GORFindSommet(uiGORSommetA);
+
+	ptrPSommetnewD->SOMAjoutArcD(TArcGORArc);
+	ptrPSommetnewA->SOMAjoutArcA(TArcGORArc);
+
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORSupprimerArc(TArc* TArcGORArc)
+{
+	if (find(vGORTArc.begin(), vGORTArc.end(), TArcGORArc) == vGORTArc.end())
+	{
+		throw invalid_argument("Arc non present dans le graphe");
+	}
+
+	unsigned int iNumSommetD = TArcGORArc->ARCGetNumeroD();
+	unsigned int iNumSommetA = TArcGORArc->ARCGetNumeroA();
+
+	PSommet<TArc>* ptrPSommetD = GORFindSommet(iNumSommetD);
+	PSommet<TArc>* ptrPSommetA = GORFindSommet(iNumSommetA);
+
+	ptrPSommetD->SOMSupprArcD(TArcGORArc);
+	ptrPSommetA->SOMSupprArcA(TArcGORArc);
+
+	auto aIterator = find(vGORTArc.begin(), vGORTArc.end(), TArcGORArc);
+	vGORTArc.erase(aIterator);
+
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORAjouterSommet(PSommet<TArc>* PSommetGORNewSommet)
+{
+	unsigned int uiNumSommet = PSommetGORNewSommet->SOMGetNumero();
+	if (GORFindSommet(uiNumSommet) != nullptr) {
+		throw invalid_argument("Sommet deja existant");
+	}
+	this->vGORPSommet.push_back(PSommetGORNewSommet);
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORModifierSommet(PSommet<TArc>* PSommetGORSommet, unsigned int uiGORNumSommet)
+{
+	if (GORFindSommet(uiGORNumSommet) != nullptr) {
+		throw invalid_argument("Sommet deja existant");
+	}
+
+	PSommetGORSommet->SOMSetNumero(uiGORNumSommet);
+
+	int iIterator;
+
+	vector<TArc*> vArcD = PSommetGORSommet->SOMGetArcD();
+	for (iIterator = 0; iIterator < vArcD.size(); iIterator++)
+	{
+		vArcD[iIterator]->ARCSetNumeroD(uiGORNumSommet);
+	}
+
+	vector<TArc*> vArcA = PSommetGORSommet->SOMGetArcA();
+	for (iIterator = 0; iIterator < vArcA.size(); iIterator++)
+	{
+		vArcA[iIterator]->ARCSetNumeroA(uiGORNumSommet);
+	}
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORSupprimerSommet(PSommet<TArc>* PSommetGORSommet)
+{
+	if (find(vGORPSommet.begin(), vGORPSommet.end(), PSommetGORSommet) == vGORPSommet.end()) {
+		throw invalid_argument("Sommet d'arrivee non existant");
+	}
+
+	int iIterator;
+	vector<TArc*> vArcD = PSommetGORSommet->SOMGetArcD();
+	vector<TArc*> vArcA = PSommetGORSommet->SOMGetArcA();
+
+	for (iIterator = 0; iIterator < vArcD.size(); iIterator++)
+	{
+		GORSupprimerArc(vArcD[iIterator]);
+	}
+
+	for (iIterator = 0; iIterator < vArcA.size(); iIterator++)
+	{
+		GORSupprimerArc(vArcA[iIterator]);
+	}
+
+	auto aIterator = find(vGORPSommet.begin(), vGORPSommet.end(), PSommetGORSommet);
+	vGORPSommet.erase(aIterator);
+}
+
+template <class TArc>
+TArc* PGraphOrient<TArc>::GORFindArc(unsigned int uiGORNumSommetD, unsigned int uiGORNumSommetA)
+{
+	TArc* ptrTArcArcTrouve = nullptr;
+	size_t stIterator = 0;
+	if (vGORTArc.empty() == false)
+	{
+		do
+		{
+			if (vGORTArc[stIterator]->ARCGetNumeroD() == uiGORNumSommetD && vGORTArc[stIterator]->ARCGetNumeroA() == uiGORNumSommetA)
+			{
+				ptrTArcArcTrouve = vGORTArc[stIterator];
+			}
+			stIterator++;
+		} while (stIterator < vGORTArc.size() && ptrTArcArcTrouve == nullptr);
+	}
+	return ptrTArcArcTrouve;
+}
+
+template <class TArc>
+PSommet<TArc>* PGraphOrient<TArc>::GORFindSommet(unsigned int uiGORNumSommet)
+{
+	PSommet<TArc>* ptrPSommetSommetTrouve = nullptr;
+	size_t stIterator = 0;
+	if (vGORPSommet.empty() == false)
+	{
+		do
+		{
+			if (vGORPSommet[stIterator]->SOMGetNumero() == uiGORNumSommet)
+			{
+				ptrPSommetSommetTrouve = vGORPSommet[stIterator];
+			}
+			stIterator++;
+		} while (stIterator < vGORPSommet.size() && ptrPSommetSommetTrouve == nullptr);
+	}
+	return ptrPSommetSommetTrouve;
+}
+
+template <class TArc>
+void PGraphOrient<TArc>::GORInverseAllArc()
+{
+	for (PSommet<TArc>* sommet : vGORPSommet)
+	{
+		// On récupère les arcs à supprimer
+		vector<TArc*> vArcD = sommet->SOMGetArcD();
+		vector<TArc*> vArcA = sommet->SOMGetArcA();
+
+		for (TArc* arc : vArcD)
+		{
+			sommet->SOMSupprArcD(arc);
+		}
+		for (TArc* arc : vArcA)
+		{
+			sommet->SOMSupprArcA(arc);
+		}
+	}
+
+	//On garde les anciens arcs pour pouvoir les remplacer
+	vector<TArc*> anciensArcs = vGORTArc;
+
+	//On vide le vector d'arcs pour lui donner les arcs inverses
+	vGORTArc.clear();
+	for (TArc* arc : anciensArcs)
+	{
+		TArc* arcInverse = arc->ARCArcInverse();
+
+		unsigned int numD = arcInverse->ARCGetNumeroD();
+		unsigned int numA = arcInverse->ARCGetNumeroA();
+
+		PSommet<TArc>* sommetD = this->GORFindSommet(numD);
+		PSommet<TArc>* sommetA = this->GORFindSommet(numA);
+
+		if (sommetD && sommetA)
+		{
+			sommetD->SOMAjoutArcD(arcInverse);
+			sommetA->SOMAjoutArcA(arcInverse);
+			vGORTArc.push_back(arcInverse);
+		}
+		delete arc; 
+	}
+
+}
+
+template <class TArc>
+vector<TArc*> PGraphOrient<TArc>::GORGetArc()
+{
+	return vGORTArc;
+}
+
+template <class TArc>
+vector<PSommet<TArc>*> PGraphOrient<TArc>::GORGetSommet()
+{
+	return vGORPSommet;
+}

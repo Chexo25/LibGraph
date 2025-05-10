@@ -1,41 +1,43 @@
-#include "PAffichage.h"
+#include <unordered_map>
+#include <vector>
+#include <iostream>
+#include <iomanip>
 
-void AFFAfficheSommetsEtArcs(TGraph& TGraphAFFGraphe)
+template <class TGraph, class TArc>
+void PAffichage<TGraph, TArc>::AFFAfficheSommetsEtArcs(TGraph& TGraphAFFGraphe)
 {
-	vector<PSommet<TArc>*> vSommet = TGraphAFFGraphe.GORGetSommet();
-	vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();
-	size_t stSizevArc = vArc.size();
-		
-	printf("voici la liste des sommets du graphe :\n");
+    vector<PSommet<TArc>*> vSommet = TGraphAFFGraphe.GORGetSommet();
+    vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();
+    size_t stSizevArc = vArc.size();
+        
+    printf("Voici la liste des sommets du graphe :\n");
 
-	//Si le type n'est pas un graphe, le getter ne sera pas trouvé
-	if (vSommet.empty()) 
-	{
-		throw logic_error("Le graphe ne contient aucun sommet");
-	}
-	if (vArc.empty()) 
-	{
-		throw logic_error("Le graphe ne contient aucun arc");
-	}
-	size_t stSizevSommet = vSommet.size();
-	for (size_t stIndex = 0; stIndex < stSizevSommet; stIndex++)
-	{
-		cout << vSommet[stIndex]->SOMGetNumero() << "\n" << endl;
-	}
-	printf("Voici la liste des arcs du graphe, "
-			"chaque arc est represente par son sommet de depart et son sommet d'arrivee.\n" 
-			"Dans le cas d'un graphe non oriente, " 
-			"il existera un arc allant du sommet de depart a celui d'arrivee " 
-			"et un allant du sommet d'arrivee a celui de depart.\n");
-	for (size_t stIndex = 0; stIndex < stSizevArc; stIndex++)
-	{
-		cout << "Arc" << stIndex << " : " 
-		<< vArc[stIndex]->ARCGetNumeroD() << " -> " 
-		<< vArc[stIndex]->ARCGetNumeroA() << "\n" << endl;
-	}
+    //Si le type n'est pas un graphe, le getter ne sera pas trouvé
+    if (vSommet.empty()) 
+    {
+        throw logic_error("Le graphe ne contient aucun sommet");
+    }
+    if (vArc.empty()) 
+    {
+        throw logic_error("Le graphe ne contient aucun arc");
+    }
+    size_t stSizevSommet = vSommet.size();
+    for (size_t stIndex = 0; stIndex < stSizevSommet; stIndex++)
+    {
+        cout << vSommet[stIndex]->SOMGetNumero() << "\n" << endl;
+    }
+    cout << "Voici la liste des arcs du graphe, chaque arc est represente par son sommet de depart et son sommet d'arrivee : \n" << endl;
+	//Dans le cas d'un graphe non oriente, il existera un arc allant du sommet de depart a celui d'arrivee et un allant du sommet d'arrivee a celui de depart
+    for (size_t stIndex = 0; stIndex < stSizevArc; stIndex++)
+    {
+        cout << "Arc" << stIndex << " : " 
+        << vArc[stIndex]->ARCGetNumeroD() << " -> " 
+        << vArc[stIndex]->ARCGetNumeroA() << "\n" << endl;
+    }
 }
 
-void AFFAfficheMatriceAdjacence(TGraph& TGraphAFFGraphe)
+template <class TGraph, class TArc>
+void PAffichage<TGraph, TArc>::AFFAfficheMatriceAdjacence(TGraph& TGraphAFFGraphe)
 {
 	//On récupère les vecteurs contenant les listes d'arcs et de sommets
 	vector<TArc*> vArc = TGraphAFFGraphe.GORGetArc();

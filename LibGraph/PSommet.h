@@ -33,29 +33,9 @@ private:
 
 public:
 	//CONSTRUCTEURS ET DESTRUCTEUR
-	PSommet()
-	{
-		uiSOMNumero = -1;
-		vSOMArcA = vector<TArc*>();
-		vSOMArcD = vector<TArc*>();
-	}
-
-	PSommet(unsigned int uiSOMNewNumero)
-	{
-		uiSOMNumero = uiSOMNewNumero;
-	}
-
-	~PSommet()
-	{
-		for (TArc* arc : vSOMArcD) {
-			delete arc;  //Supprime chaque arc de départ
-		}
-		vSOMArcD.clear();
-		for (TArc* arc : vSOMArcA) {
-			delete arc;  //Supprime chaque arc d'arrivée
-		}
-		vSOMArcA.clear();
-	}
+	PSommet();
+	PSommet(unsigned int uiSOMNewNumero);
+	~PSommet();
 
 	//METHODES
 	/******************************************************************************************
@@ -67,10 +47,7 @@ public:
 	 * Entraîne : Un entier est renvoyé
 	 ******************************************************************************************/
 	
-	unsigned int SOMGetNumero()
-	{
-		return uiSOMNumero;
-	}
+	unsigned int SOMGetNumero();
 
 	/******************************************************************************************
 	 * SOMSetNumero
@@ -82,10 +59,7 @@ public:
 	 * (EXCEPTION): La valeur entrée n'est pas valide
 	 ******************************************************************************************/
 	
-	void SOMSetNumero(unsigned int uiSOMNewNumero)
-	{
-		uiSOMNumero = uiSOMNewNumero;
-	}
+	void SOMSetNumero(unsigned int uiSOMNewNumero);
 
 	//Accesseur de vSOMArcD
 	/******************************************************************************************
@@ -98,17 +72,7 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas valide
 	 ******************************************************************************************/
 	
-	void SOMAjoutArcD(TArc* ptrTArcSOMNouveauArc)
-	{
-		if (ptrTArcSOMNouveauArc != nullptr)
-		{
-			vSOMArcD.push_back(ptrTArcSOMNouveauArc);
-		}
-		else
-		{
-			throw invalid_argument("Pointeur d'Arc non valide");
-		}
-	}
+	void SOMAjoutArcD(TArc* ptrTArcSOMNouveauArc);
 
 	/******************************************************************************************
 	 * SOMGetArcD
@@ -120,10 +84,7 @@ public:
 	 * (EXCEPTION): vSOMArcD est nulle
 	 ******************************************************************************************/
 	
-	vector<TArc*> SOMGetArcD()
-	{
-		return vSOMArcD;
-	}
+	vector<TArc*> SOMGetArcD();	
 
 	/******************************************************************************************
 	 * SOMSupprArcD
@@ -136,21 +97,9 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcD
 	 ******************************************************************************************/
 	
-	void SOMSupprArcD(TArc* ptrTArcSOMArc)
-	{
-		auto iIterator = find(vSOMArcD.begin(), vSOMArcD.end(), ptrTArcSOMArc);
-		if (iIterator != vSOMArcD.end())
-		{
-			vSOMArcD.erase(iIterator);
-		}
-		else
-		{
-			throw invalid_argument("Arc non existant dans la liste de depart !");
-		}
-	}
+	void SOMSupprArcD(TArc* ptrTArcSOMArc);
 
-	//Accesseur de vSOMArcA
-		/******************************************************************************************
+	/******************************************************************************************
 	 * SOMAjoutArcA
 	 * --------------------------------------------------------------------------------------
 	 * Entrée : NewArc, le pointeur de l'Arc à ajouter
@@ -160,17 +109,7 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas valide
 	 ******************************************************************************************/
 
-	void SOMAjoutArcA(TArc* ptrTArcSOMNouveauArc)
-	{
-		if (ptrTArcSOMNouveauArc != nullptr)
-		{
-			vSOMArcA.push_back(ptrTArcSOMNouveauArc);
-		}
-		else
-		{
-			throw invalid_argument("Pointeur d'Arc non valide");
-		}
-	}
+	void SOMAjoutArcA(TArc* ptrTArcSOMNouveauArc);
 
 	/******************************************************************************************
 	 * SOMGetArcA
@@ -182,10 +121,7 @@ public:
 	 * (EXCEPTION): vSOMArcA est nulle
 	 ******************************************************************************************/
 	
-	vector<TArc*> SOMGetArcA()
-	{
-		return vSOMArcA;
-	}
+	vector<TArc*> SOMGetArcA();
 
 	/******************************************************************************************
 	 * SOMSupprArcA
@@ -198,21 +134,10 @@ public:
 	 * (EXCEPTION): Le pointeur n'est pas dans vSOMArcA
 	 ******************************************************************************************/
 	
-	void SOMSupprArcA(TArc* ptrTArcSOMArc)
-	{
-		auto iIterator = find(vSOMArcA.begin(), vSOMArcA.end(), ptrTArcSOMArc);
-		if (iIterator != vSOMArcA.end())
-		{
-			vSOMArcA.erase(iIterator);
-		}
-		else
-		{
-			throw invalid_argument("Arc non existant dans la liste d'arrivee !");
-		}
-	}
-
+	void SOMSupprArcA(TArc* ptrTArcSOMArc);
 
 };
 
+#include "PSommet.th"
 
 #endif
