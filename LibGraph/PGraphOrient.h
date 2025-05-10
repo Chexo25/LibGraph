@@ -409,30 +409,6 @@ public :
 		return vGORCSommet;
 	}
 
-/******************************************************************************************
-	* GORHasSommets
-	* --------------------------------------------------------------------------------------
-	* Entrée : Rien
-	* Sortie : Un booléen
-	* Entraîne : Retourne un booléen qui définit si un graphe contient des sommets ou non
-******************************************************************************************/
-
-	bool GORHasSommets() const {
-		return !vGORCSommet.empty();
-	}
-
-/******************************************************************************************
-	* GORHasArcs
-	* --------------------------------------------------------------------------------------
-	* Entrée : Rien
-	* Sortie : Un booléen
-	* Entraîne : Retourne un booléen qui définit si un graphe contient des arcs ou non
-******************************************************************************************/
-
-	bool GORHasArcs() const {
-		return !vGORCArc.empty();
-	}
-
 };
 
 #endif
