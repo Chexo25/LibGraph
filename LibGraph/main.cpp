@@ -22,6 +22,7 @@
 #include "PGraph.h"
 #include "PSommet.h"
 #include "PAffichage.h"
+#include "Clique.h"
 
 using namespace std;
 
@@ -96,23 +97,12 @@ int main()
 {
     const string sFichier = "TestLectureGraph.txt";
     try {
-        //PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier); //Graphe non orienté
-        //PAffichage<PGraph<CArc>, CArc> affichage;
-        PGraphOrient<CArc>* Graph = Lecturefichier<PGraphOrient, CArc>(sFichier); //Graphe orienté
-        PAffichage<PGraphOrient<CArc>, CArc> affichage;
+        PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier);
+        PAffichage<PGraph<CArc>, CArc> affichage;
+        vector <PSommet<CArc>*> vPSommet = Graph->GORGetvGORPSommet();
+        affichage.AFFAfficheMatriceAdjacence(*Graph);
+        cout << isClique(vPSommet) << endl;
 
-        cout << "affichage avant inversion\n" << endl;
-        
-        affichage.AFFAfficheSommetsEtArcs(*Graph); //appeler la méthode d'affichage des sommets et arcs du graphe
-        affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
-        
-        Graph->GORInverseAllArc();
-        
-        cout << "\naffichage apres inversion\n" << endl;
-        
-        affichage.AFFAfficheSommetsEtArcs(*Graph); //appeler la méthode d'affichage des sommets et arcs du graphe
-        affichage.AFFAfficheMatriceAdjacence(*Graph); //appeler la méthode d'affichage de la matrice d'adjacence du graphe
-        
         delete Graph;
     }
     catch (const exception& e) {

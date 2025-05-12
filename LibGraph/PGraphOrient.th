@@ -27,6 +27,12 @@ vector<TArc*>& PGraphOrient<TArc>::GORGetvGORTArc()
 }
 
 template <class TArc>
+vector<PSommet<TArc>*>& PGraphOrient<TArc>::GORGetvGORPSommet()
+{
+	return vGORPSommet;
+}
+
+template <class TArc>
 void PGraphOrient<TArc>::GORAjouterArc(TArc* TArcGORNewArc)
 {	
 	if (TArcGORNewArc->ARCGetNumeroD() == TArcGORNewArc->ARCGetNumeroA())

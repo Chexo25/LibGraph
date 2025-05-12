@@ -44,6 +44,9 @@ public:
 	//Getter de vGORTArc
 	vector<TArc*>& GORGetvGORTArc();
 
+	//Getter de vGORPSommet
+	vector<PSommet<TArc>*>& GORGetvGORPSommet();
+
 /******************************************************************************************
 	 * GORAjouterArc
 	 * --------------------------------------------------------------------------------------

@@ -143,6 +143,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Clique.h" />
     <ClInclude Include="PAffichage.h" />
     <ClInclude Include="CArc.h" />
     <ClInclude Include="PGraph.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="PGraphOrient.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Clique.th" />
     <None Include="PAffichage.th" />
     <None Include="PGraph.th" />
     <None Include="PGraphOrient.th" />

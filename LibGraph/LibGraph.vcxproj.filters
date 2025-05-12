@@ -38,6 +38,9 @@
     <ClInclude Include="PAffichage.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Clique.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="PAffichage.th">
@@ -50,6 +53,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
     <None Include="PSommet.th">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="Clique.th">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
   </ItemGroup>
