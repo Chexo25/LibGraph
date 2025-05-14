@@ -146,6 +146,7 @@
     <ClInclude Include="Clique.h" />
     <ClInclude Include="PAffichage.h" />
     <ClInclude Include="CArc.h" />
+    <ClInclude Include="PCliqueMaxima.h" />
     <ClInclude Include="PGraph.h" />
     <ClInclude Include="PSommet.h" />
     <ClInclude Include="PGraphOrient.h" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <None Include="Clique.th" />
     <None Include="PAffichage.th" />
+    <None Include="PCliqueMaxima.th" />
     <None Include="PGraph.th" />
     <None Include="PGraphOrient.th" />
     <None Include="PSommet.th" />

@@ -1,0 +1,70 @@
+template<class TArc>
+PClique_max<TArc>::PClique_max()
+{
+}
+
+template<class TArc>
+PClique_max<TArc>::~PClique_max()
+{
+	CLIResetCliqueMax();
+}
+
+template<class TArc>
+void PClique_max<TArc>::CLIResetCliqueMax()
+{
+	stTailleMaxClique = 0;
+	for (size_t stIterator = 0; stIterator < vvCliques_Max.size(); stIterator++)
+	{
+		vvCliques_Max[stIterator].clear();
+	}
+	vvCliques_Max.clear();
+}
+
+template<class TArc>
+void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> Graph, vector<PSommet<TArc>*> ListeSommet)
+{
+	vector<TArc*> vListeArc;
+	PSommet<TArc>* pSommet;
+
+	if (Graph.GORGetSommet().size() == 0)
+	{
+		if (ListeSommet.size() > stTailleMaxClique)
+		{
+			CLIResetCliqueMax();
+			stTailleMaxClique = ListeSommet.size();
+			vvCliques_Max.push_back(ListeSommet);
+		}
+		else if (ListeSommet.size() == stTailleMaxClique)
+		{
+			vvCliques_Max.push_back(ListeSommet);
+		}
+	}
+	else
+	{
+		for (size_t stIterator = 0; stIterator < Graph.GORGetSommet().size(); stIterator++)
+		{
+			pSommet = Graph.GORGetSommet()[stIterator];
+			vListeArc = pSommet->SOMGetArcA();
+
+			Graph.GORSupprimerSommet(pSommet);
+
+			ListeSommet.push_back(pSommet);
+
+			if (isClique(ListeSommet))
+			{
+				CLIEnuCliqueMax(Graph, ListeSommet);
+			}
+			else
+			{
+				ListeSommet.pop_back();
+				CLIEnuCliqueMax(Graph, ListeSommet);
+			}
+
+			Graph.GORAjouterSommet(pSommet);
+			for (int iIteratorArc = 0; iIteratorArc < vListeArc.size(); iIteratorArc++)
+			{
+				Graph.GORAjouterArc(vListeArc[iIteratorArc]);
+			}
+		}
+	}
+}

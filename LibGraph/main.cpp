@@ -23,6 +23,7 @@
 #include "PSommet.h"
 #include "PAffichage.h"
 #include "Clique.h"
+#include "PCliqueMaxima.h"
 
 using namespace std;
 
@@ -97,13 +98,17 @@ int main()
 {
     const string sFichier = "TestLectureGraph.txt";
     try {
-        PGraph<CArc>* Graph = Lecturefichier<PGraph, CArc>(sFichier);
+        PGraph<CArc> Graph = *(Lecturefichier<PGraph, CArc>(sFichier));
         PAffichage<PGraph<CArc>, CArc> affichage;
-        vector <PSommet<CArc>*> vPSommet = Graph->GORGetvGORPSommet();
-        affichage.AFFAfficheMatriceAdjacence(*Graph);
+		PClique_max<CArc> clique;
+        vector <PSommet<CArc>*> vPSommet = Graph.GORGetvGORPSommet();
+        affichage.AFFAfficheMatriceAdjacence(Graph);
+
+		clique.CLIEnuCliqueMax(Graph, vPSommet);
+
         cout << isClique(vPSommet) << endl;
 
-        delete Graph;
+        delete &Graph;
     }
     catch (const exception& e) {
         cerr << "Erreur : " << e.what() << endl;
