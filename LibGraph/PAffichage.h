@@ -20,6 +20,7 @@
 
 #include "PGraphOrient.h"
 #include "PSommet.h"
+#include "PCliqueMaxima.h"
 
 #include <unordered_map>
 #include <vector>
@@ -56,6 +57,8 @@ public:
 ******************************************************************************************/
 	
 	void AFFAfficheMatriceAdjacence(TGraph& TGraphAFFGraphe);
+
+	void AFFAfficherCliquesMaxima(TGraph& TGraphAFFGraphe);
 };
 
 #include "PAffichage.th"

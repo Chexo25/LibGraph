@@ -99,13 +99,9 @@ int main()
     try {
         PGraph<CArc> Graph = *(Lecturefichier<PGraph, CArc>(sFichier));
         PAffichage<PGraph<CArc>, CArc> affichage;
-		PClique_max<CArc> clique;
-        vector <PSommet<CArc>*> vPSommet = Graph.GORGetvGORPSommet();
         affichage.AFFAfficheMatriceAdjacence(Graph);
 
-		clique.CLIEnuCliqueMax(Graph, vPSommet);
-
-        cout << clique.CLIIsClique(vPSommet) << endl;
+        affichage.AFFAfficherCliquesMaxima(Graph);
 
         delete &Graph;
     }

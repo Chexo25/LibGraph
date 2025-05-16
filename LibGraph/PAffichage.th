@@ -94,3 +94,29 @@ void PAffichage<TGraph, TArc>::AFFAfficheMatriceAdjacence(TGraph& TGraphAFFGraph
 		cout << "\n";
 	}
 }
+
+template <class TGraph, class TArc>
+void PAffichage<TGraph, TArc>::AFFAfficherCliquesMaxima(TGraph& TGraphAFFGraphe) 
+{
+	PClique_max<TArc> clique;
+	vector<PSommet<TArc>*> vSommet;
+	clique.CLIEnuCliqueMax(TGraphAFFGraphe, vSommet);
+	vector<vector<PSommet<TArc>*>> vvCliquesMax = clique.CLIGetVvCliquesMax();
+	for (unsigned int uiIndex1 = 0; uiIndex1 < vvCliquesMax.size(); uiIndex1++)
+	{
+		cout << "Clique numero" << uiIndex1 << "\n liste des sommets :" << endl;
+		for (PSommet<TArc>* sommet : vvCliquesMax[uiIndex1])
+		{
+			cout << sommet->SOMGetNumero() << "\n" << endl;
+		}
+	}
+	if (!vvCliquesMax.empty())
+	{
+		cout << "La clique maxima contient " << vvCliquesMax[0].size() << " sommets." << endl;
+	}
+	else
+	{
+		cout << "Aucune clique trouvee." << endl;
+	}
+
+}

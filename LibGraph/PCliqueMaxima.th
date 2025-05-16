@@ -9,6 +9,12 @@ PClique_max<TArc>::~PClique_max()
 	CLIResetCliqueMax();
 }
 
+template<class TArc>
+vector<vector<PSommet<TArc>*>> PClique_max<TArc>::CLIGetVvCliquesMax()
+{
+    return vvCliques_Max;
+}
+
 template <class TArc>
 bool PClique_max<TArc>::CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet) {
 	size_t stSizevSommet = CLIvSommet.size();
@@ -16,21 +22,23 @@ bool PClique_max<TArc>::CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet) {
 	{
 		return true;
 	}
-	for (size_t stIndex1 = 0; stIndex1 < CLIvSommet.size(); ++stIndex1) {
-		for (size_t stIndex2 = 0; stIndex2 < CLIvSommet.size(); ++stIndex2) {
-			if (stIndex1 == stIndex2) continue;
+
+	for (size_t stIndex1 = 0; stIndex1 < stSizevSommet; ++stIndex1) {
+		for (size_t stIndex2 = stIndex1 + 1; stIndex2 < stSizevSommet; ++stIndex2) {
 			PSommet<TArc>* PSommet1 = CLIvSommet[stIndex1];
 			PSommet<TArc>* PSommet2 = CLIvSommet[stIndex2];
-			bool bClique = false;
+			bool bConnectes = false;
 
 			for (TArc* arc : PSommet1->SOMGetArcD()) {
 				if (arc->ARCGetNumeroA() == PSommet2->SOMGetNumero()) {
-					bClique = true;
+					bConnectes = true;
+					break;
 				}
 			}
-			if (!bClique)
+
+			if (!bConnectes)
 			{
-				return false; //PSommet1 n'est pas relié à PSommet2
+				return false;
 			}
 		}
 	}
@@ -40,59 +48,55 @@ bool PClique_max<TArc>::CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet) {
 template<class TArc>
 void PClique_max<TArc>::CLIResetCliqueMax()
 {
-	stTailleMaxClique = 0;
-	for (size_t stIterator = 0; stIterator < vvCliques_Max.size(); stIterator++)
-	{
-		vvCliques_Max[stIterator].clear();
-	}
-	vvCliques_Max.clear();
+    stTailleMaxClique = 0;
+    for (size_t stIterator = 0; stIterator < vvCliques_Max.size(); stIterator++)
+    {
+        vvCliques_Max[stIterator].clear();
+    }
+    vvCliques_Max.clear();
 }
 
 template<class TArc>
 void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> Graph, vector<PSommet<TArc>*> ListeSommet)
 {
-	vector<TArc*> vListeArc;
-	PSommet<TArc>* pSommet;
-	vector<PSommet<TArc>*> vListeSommet = Graph.GORGetSommet();
-	if (vListeSommet.size() == 0)
-	{
-		if (ListeSommet.size() > stTailleMaxClique)
-		{
-			CLIResetCliqueMax();
-			stTailleMaxClique = ListeSommet.size();
-			vvCliques_Max.push_back(ListeSommet);
-		}
-		else if (ListeSommet.size() == stTailleMaxClique)
-		{
-			vvCliques_Max.push_back(ListeSommet);
-		}
-	}
-	else
-	{
-		for (size_t stIterator = 0; stIterator < vListeSommet.size(); stIterator++)
-		{
-			pSommet = vListeSommet[stIterator];
-			vListeArc = pSommet->SOMGetArcA();
+    vector<PSommet<TArc>*> vListeSommet = Graph.GORGetSommet();
 
-			ListeSommet.push_back(pSommet);
+    if (vListeSommet.size() == 0)
+    {
+        if (ListeSommet.size() > stTailleMaxClique)
+        {
+            CLIResetCliqueMax();
+            stTailleMaxClique = ListeSommet.size();
+            vvCliques_Max.push_back(ListeSommet);
+        }
+        else if (ListeSommet.size() == stTailleMaxClique)
+        {
+            vvCliques_Max.push_back(ListeSommet);
+        }
+        return;
+    }
 
-			Graph.GORSupprimerSommet(pSommet);
+    for (size_t stIterator = 0; stIterator < vListeSommet.size(); stIterator++)
+    {
+        try {
+            PSommet<TArc>* pSommet = vListeSommet[stIterator];
 
-			if (CLIIsClique(ListeSommet))
-			{
-				CLIEnuCliqueMax(Graph, ListeSommet);
-			}
-			else
-			{
-				ListeSommet.pop_back();
-				CLIEnuCliqueMax(Graph, ListeSommet);
-			}
+            PGraph<TArc> GraphCopy = Graph;
 
-			Graph.GORAjouterSommet(pSommet);
-			for (int iIteratorArc = 0; iIteratorArc < vListeArc.size(); iIteratorArc++)
-			{
-				Graph.GORAjouterArc(vListeArc[iIteratorArc]);
-			}
-		}
-	}
+            vector<PSommet<TArc>*> ListeAvecSommet = ListeSommet;
+            ListeAvecSommet.push_back(pSommet);
+
+            GraphCopy.GORSupprimerSommet(pSommet);
+
+            if (CLIIsClique(ListeAvecSommet))
+            {
+                CLIEnuCliqueMax(GraphCopy, ListeAvecSommet);
+            }
+
+            CLIEnuCliqueMax(GraphCopy, ListeSommet);
+        }
+        catch (const exception& e) {
+            continue;
+        }
+    }
 }

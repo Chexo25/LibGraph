@@ -36,6 +36,10 @@ public:
 	PClique_max();
 	~PClique_max();
 
+	//GETTERS ET SETTERS
+
+	vector<vector<PSommet<TArc>*>> CLIGetVvCliquesMax();
+
 	//METHODES
 
 /******************************************************************************************
@@ -44,7 +48,8 @@ public:
 	 * Entrée : CLIvSommet, un vecteur de sommet 
 	 * Nécessite : Que le vecteur de sommet spécifié soit valide
 	 * Sortie : Un booléen : true ou false
-	 * Entraîne : Un booléen true ou false indiquant si le vector de sommets spécifié est une clique
+	 * Entraîne : Un booléen true ou false indiquant si le vector de sommets spécifié est une clique OU
+	 * (EXCEPTION) : Le vector passé en paramètre est vide
 ******************************************************************************************/
 
 	bool CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet);
@@ -72,6 +77,6 @@ public:
 	void CLIResetCliqueMax();
 
 };
-#endif
 
 #include "PCliqueMaxima.th"
+#endif
