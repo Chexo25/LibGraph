@@ -143,7 +143,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Clique.h" />
     <ClInclude Include="PAffichage.h" />
     <ClInclude Include="CArc.h" />
     <ClInclude Include="PCliqueMaxima.h" />
@@ -152,12 +151,14 @@
     <ClInclude Include="PGraphOrient.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Clique.th" />
     <None Include="PAffichage.th" />
     <None Include="PCliqueMaxima.th" />
     <None Include="PGraph.th" />
     <None Include="PGraphOrient.th" />
     <None Include="PSommet.th" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="TestLectureGraph.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

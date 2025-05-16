@@ -9,6 +9,34 @@ PClique_max<TArc>::~PClique_max()
 	CLIResetCliqueMax();
 }
 
+template <class TArc>
+bool PClique_max<TArc>::CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet) {
+	size_t stSizevSommet = CLIvSommet.size();
+	if ((unsigned int)stSizevSommet == 1)
+	{
+		return true;
+	}
+	for (size_t stIndex1 = 0; stIndex1 < CLIvSommet.size(); ++stIndex1) {
+		for (size_t stIndex2 = 0; stIndex2 < CLIvSommet.size(); ++stIndex2) {
+			if (stIndex1 == stIndex2) continue;
+			PSommet<TArc>* PSommet1 = CLIvSommet[stIndex1];
+			PSommet<TArc>* PSommet2 = CLIvSommet[stIndex2];
+			bool bClique = false;
+
+			for (TArc* arc : PSommet1->SOMGetArcD()) {
+				if (arc->ARCGetNumeroA() == PSommet2->SOMGetNumero()) {
+					bClique = true;
+				}
+			}
+			if (!bClique)
+			{
+				return false; //PSommet1 n'est pas relié à PSommet2
+			}
+		}
+	}
+	return true;
+}
+
 template<class TArc>
 void PClique_max<TArc>::CLIResetCliqueMax()
 {
@@ -25,8 +53,8 @@ void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> Graph, vector<PSommet<TArc>
 {
 	vector<TArc*> vListeArc;
 	PSommet<TArc>* pSommet;
-
-	if (Graph.GORGetSommet().size() == 0)
+	vector<PSommet<TArc>*> vListeSommet = Graph.GORGetSommet();
+	if (vListeSommet.size() == 0)
 	{
 		if (ListeSommet.size() > stTailleMaxClique)
 		{
@@ -41,16 +69,16 @@ void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> Graph, vector<PSommet<TArc>
 	}
 	else
 	{
-		for (size_t stIterator = 0; stIterator < Graph.GORGetSommet().size(); stIterator++)
+		for (size_t stIterator = 0; stIterator < vListeSommet.size(); stIterator++)
 		{
-			pSommet = Graph.GORGetSommet()[stIterator];
+			pSommet = vListeSommet[stIterator];
 			vListeArc = pSommet->SOMGetArcA();
-
-			Graph.GORSupprimerSommet(pSommet);
 
 			ListeSommet.push_back(pSommet);
 
-			if (isClique(ListeSommet))
+			Graph.GORSupprimerSommet(pSommet);
+
+			if (CLIIsClique(ListeSommet))
 			{
 				CLIEnuCliqueMax(Graph, ListeSommet);
 			}

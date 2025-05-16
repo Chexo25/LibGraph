@@ -22,7 +22,6 @@
 #include "PGraph.h"
 #include "PSommet.h"
 #include "PAffichage.h"
-#include "Clique.h"
 #include "PCliqueMaxima.h"
 
 using namespace std;
@@ -106,7 +105,7 @@ int main()
 
 		clique.CLIEnuCliqueMax(Graph, vPSommet);
 
-        cout << isClique(vPSommet) << endl;
+        cout << clique.CLIIsClique(vPSommet) << endl;
 
         delete &Graph;
     }
