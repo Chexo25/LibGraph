@@ -52,7 +52,7 @@ public:
 	 * (EXCEPTION) : Le vector passé en paramètre est vide
 ******************************************************************************************/
 
-	bool CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet);
+	bool CLIIsClique(vector<PSommet<TArc>*> CLIvSommet);
 
 /******************************************************************************************
 	* CLIEnuCliqueMax

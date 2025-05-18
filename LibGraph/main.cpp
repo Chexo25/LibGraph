@@ -100,7 +100,7 @@ int main()
         PGraph<CArc> Graph = *(Lecturefichier<PGraph, CArc>(sFichier));
         PAffichage<PGraph<CArc>, CArc> affichage;
         affichage.AFFAfficheMatriceAdjacence(Graph);
-
+        
         affichage.AFFAfficherCliquesMaxima(Graph);
 
         delete &Graph;
@@ -108,5 +108,6 @@ int main()
     catch (const exception& e) {
         cerr << "Erreur : " << e.what() << endl;
     }
+
     return 0;
 }

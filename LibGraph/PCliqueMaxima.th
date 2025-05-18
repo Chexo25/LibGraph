@@ -1,6 +1,7 @@
 template<class TArc>
 PClique_max<TArc>::PClique_max()
 {
+    stTailleMaxClique = 0;
 }
 
 template<class TArc>
@@ -15,34 +16,37 @@ vector<vector<PSommet<TArc>*>> PClique_max<TArc>::CLIGetVvCliquesMax()
     return vvCliques_Max;
 }
 
-template <class TArc>
-bool PClique_max<TArc>::CLIIsClique(const vector<PSommet<TArc>*>& CLIvSommet) {
-	size_t stSizevSommet = CLIvSommet.size();
-	if ((unsigned int)stSizevSommet == 1)
-	{
-		return true;
-	}
+template<class TArc>
+bool PClique_max<TArc>::CLIIsClique(vector<PSommet<TArc>*> CLIvSommets) {
+    for (size_t i = 0; i < CLIvSommets.size(); i++) {
+        for (size_t j = i + 1; j < CLIvSommets.size(); j++) {
+            PSommet<TArc>* s1 = CLIvSommets[i];
+            PSommet<TArc>* s2 = CLIvSommets[j];
+            bool connected = false;
 
-	for (size_t stIndex1 = 0; stIndex1 < stSizevSommet; ++stIndex1) {
-		for (size_t stIndex2 = stIndex1 + 1; stIndex2 < stSizevSommet; ++stIndex2) {
-			PSommet<TArc>* PSommet1 = CLIvSommet[stIndex1];
-			PSommet<TArc>* PSommet2 = CLIvSommet[stIndex2];
-			bool bConnectes = false;
+            //On vérifie si s1 est connecté à s2
+            for (TArc* arc : s1->SOMGetArcD()) {
+                if (arc->ARCGetNumeroA() == s2->SOMGetNumero()) {
+                    connected = true;
+                    break;
+                }
+            }
 
-			for (TArc* arc : PSommet1->SOMGetArcD()) {
-				if (arc->ARCGetNumeroA() == PSommet2->SOMGetNumero()) {
-					bConnectes = true;
-					break;
-				}
-			}
-
-			if (!bConnectes)
-			{
-				return false;
-			}
-		}
-	}
-	return true;
+            //Sinon, on regarde si s2 est connecté à s1 (car graphe non orienté)
+            if (!connected) {
+                for (TArc* arc : s2->SOMGetArcD()) {
+                    if (arc->ARCGetNumeroA() == s1->SOMGetNumero()) {
+                        connected = true;
+                        break;
+                    }
+                }
+            }
+            if (!connected) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 template<class TArc>
@@ -95,7 +99,7 @@ void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> Graph, vector<PSommet<TArc>
 
             CLIEnuCliqueMax(GraphCopy, ListeSommet);
         }
-        catch (const exception& e) {
+        catch (const exception&) {
             continue;
         }
     }
