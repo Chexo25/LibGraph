@@ -38,7 +38,10 @@
     <ClInclude Include="PCliqueMaxima.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="FonctionsExternes.h">
+    <ClInclude Include="Affichage.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="LectureFichier.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -55,7 +58,10 @@
     <None Include="PCliqueMaxima.th">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
-    <None Include="FonctionsExternes.th">
+    <None Include="Affichage.th">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="LectureFichier.th">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
   </ItemGroup>

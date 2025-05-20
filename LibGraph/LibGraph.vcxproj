@@ -143,15 +143,17 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FonctionsExternes.h" />
+    <ClInclude Include="Affichage.h" />
     <ClInclude Include="CArc.h" />
+    <ClInclude Include="LectureFichier.h" />
     <ClInclude Include="PCliqueMaxima.h" />
     <ClInclude Include="PGraph.h" />
     <ClInclude Include="PSommet.h" />
     <ClInclude Include="PGraphOrient.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FonctionsExternes.th" />
+    <None Include="Affichage.th" />
+    <None Include="LectureFichier.th" />
     <None Include="PCliqueMaxima.th" />
     <None Include="PGraph.th" />
     <None Include="PGraphOrient.th" />

@@ -1,11 +1,10 @@
-#ifndef FONCEXT_H
-#define FONCEXT_H
+#ifndef AFFICHAGE_H
+#define AFFICHAGE_H
 /************************************************************************************************
- * FICHIER : Fichier contenant différentes fonctions utiles au bon fonctionnement de la librairie
+ * FICHIER : Fichier contenant les différentes fonctions d'affichage
  ************************************************************************************************
  *
- * ROLE : Contenir différentes fonctions externes aux graphes mais utiles à la librairie :
- *		  Permet de lire un fichier et d'en retourner un graphe
+ * ROLE : Contenir différentes fonctions externes d'affichage :
  *		  Permet d'afficher un graphe en utilisant différentes méthodes :
  *		  - Affichage des noeuds et des arcs
  *		  - Affichage de la matrice d'adjacence
@@ -19,28 +18,12 @@
  * INCLUSIONS EXTERNES :
 ************************************************************************************************/
 
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <unordered_map>
 #include <vector>
 #include <iomanip>
 #include "PSommet.h"
 
 using namespace std;
-
-/******************************************************************************************
-     * Lecturefichier
-     * --------------------------------------------------------------------------------------
-     * Entrée : sNomFichier, un fichier
-     * Nécessite : que le fichier spécifié existe
-     * Sortie : Rien
-     * Entraîne : L'ouverture du fichier et la lecture des lignes permettant l'affichge du graphe OU
-     * (EXCEPTION): le fichier ne s'est pas ouvert correctement
-******************************************************************************************/
-
-template <template <class> class TGraph, class TArc>
-TGraph<TArc>* Lecturefichier(const string sNomFichier);
 
 /******************************************************************************************
 	 * AFFAfficheSommetsEtArcs
@@ -80,6 +63,6 @@ void AfficheMatriceAdjacence(TGraph& PGraphGraphe);
 template <class TGraph, class TArc>
 void AfficheCliquesMaxima(TGraph& TGraphGraphe);
 
-#include "FonctionsExternes.th"
+#include "Affichage.th"
 
 #endif

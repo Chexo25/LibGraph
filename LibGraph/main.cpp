@@ -18,7 +18,8 @@
 #include "PGraph.h"
 #include "PSommet.h"
 #include "PCliqueMaxima.h"
-#include "FonctionsExternes.h"
+#include "Affichage.h"
+#include "LectureFichier.h"
 
 using namespace std;
 
