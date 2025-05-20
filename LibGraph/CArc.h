@@ -49,7 +49,7 @@ public:
 /******************************************************************************************
 	* ARCSetNumeroD
 	* --------------------------------------------------------------------------------------
-	* Entrée : Un numéro de départ
+	* Entrée : uiARCNum, un numéro de départ
 	* Nécessite : rien
 	* Sortie : rien
 	* Entraîne : Le numéro de départ de l'arc est modifié
@@ -71,7 +71,7 @@ public:
 /******************************************************************************************
 	* ARCSetNumeroD
 	* --------------------------------------------------------------------------------------
-	* Entrée : Un numéro d'arrivée
+	* Entrée : uiARCNum, un numéro d'arrivée
 	* Nécessite : rien
 	* Sortie : rien
 	* Entraîne : Le numéro d'arrivée de l'arc est modifié

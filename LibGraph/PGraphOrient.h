@@ -47,6 +47,9 @@ public:
 	//Getter de vGORPSommet
 	vector<PSommet<TArc>*>& GORGetvGORPSommet();
 
+	//Setter de vGORPSommet
+	void GORSetvGORPSommet(vector<PSommet<TArc>*> nouveauxSommets);
+
 /******************************************************************************************
 	 * GORAjouterArc
 	 * --------------------------------------------------------------------------------------
@@ -147,7 +150,6 @@ public:
 	* GORFindSommet
 	* --------------------------------------------------------------------------------------
 	* Entrée : uiGORNumSommet, le sommet recherché,
-	* uiGORNumSommet, le numéro de sommet recherché
 	* Nécessite : Rien
 	* Sortie : Un pointeur sur un PSommet
 	* Entraîne : L'affichage du sommet recherché s'il existe, NULL sinon OU

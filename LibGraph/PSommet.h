@@ -52,7 +52,7 @@ public:
 	/******************************************************************************************
 	 * SOMSetNumero
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : uiNumero, Le nouveau numéro du Sommet
+	 * Entrée : uiSOMNewNumero, Le nouveau numéro du Sommet
 	 * Nécessite : Que le numéro entré, soit un entier positif
 	 * Sortie : Aucune
 	 * Entraîne : Le numéro du Sommet est mis à jour OU
@@ -65,7 +65,7 @@ public:
 	/******************************************************************************************
 	 * SOMAjoutArcD
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : NewArc, le pointeur de l'Arc à ajouter
+	 * Entrée : ptrTArcSOMNouveauArc, le pointeur de l'Arc à ajouter
 	 * Nécessite : Que NewArc ne soit pas null
 	 * Sortie : Aucune
 	 * Entraîne : L'ajout du pointeur NewArc à vSOMArcD OU
@@ -89,7 +89,7 @@ public:
 	/******************************************************************************************
 	 * SOMSupprArcD
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : Arc, le pointeur de l'Arc à supprimer
+	 * Entrée : ptrTArcSOMArc, le pointeur de l'Arc à supprimer
 	 * Nécessite : Que Arc ne soit pas null et présent dans vSOMArcD
 	 * Sortie : Aucune
 	 * Entraîne : La suppression du pointeur Arc de vSOMArcD OU
@@ -102,7 +102,7 @@ public:
 	/******************************************************************************************
 	 * SOMAjoutArcA
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : NewArc, le pointeur de l'Arc à ajouter
+	 * Entrée : ptrTArcSOMNouveauArc, le pointeur de l'Arc à ajouter
 	 * Nécessite : Que NewArc ne soit pas null
 	 * Sortie : Aucune
 	 * Entraîne : L'ajout du pointeur NewArc à vSOMArcA OU
@@ -126,7 +126,7 @@ public:
 	/******************************************************************************************
 	 * SOMSupprArcA
 	 * --------------------------------------------------------------------------------------
-	 * Entrée : Arc, le pointeur de l'Arc à supprimer
+	 * Entrée : ptrTArcSOMArc, le pointeur de l'Arc à supprimer
 	 * Nécessite : Que Arc ne soit pas null et présent dans vSOMArcA
 	 * Sortie : Aucune
 	 * Entraîne : La suppression du pointeur Arc de vSOMArcA OU
@@ -135,6 +135,17 @@ public:
 	 ******************************************************************************************/
 	
 	void SOMSupprArcA(TArc* ptrTArcSOMArc);
+
+	/******************************************************************************************
+	 * SOMEstVoisinAvec
+	 * --------------------------------------------------------------------------------------
+	 * Entrée : PSommetSOMSommet le pointeur du sommet à vérifier
+	 * Nécessite : Rien
+	 * Sortie : Un booléen true si le sommet spécifié est voisin avec le sommet actuel, false sinon
+	 * Entraîne : Rien
+	 ******************************************************************************************/
+
+	bool SOMEstVoisinAvec(PSommet<TArc>* PSommetSOMSommet) const;
 
 };
 

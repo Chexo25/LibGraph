@@ -33,6 +33,13 @@ vector<PSommet<TArc>*>& PGraphOrient<TArc>::GORGetvGORPSommet()
 }
 
 template <class TArc>
+void PGraphOrient<TArc>::GORSetvGORPSommet(vector<PSommet<TArc>*> nouveauxSommets)
+{
+	this->vGORPSommet = nouveauxSommets;
+}
+
+
+template <class TArc>
 void PGraphOrient<TArc>::GORAjouterArc(TArc* TArcGORNewArc)
 {	
 	if (TArcGORNewArc->ARCGetNumeroD() == TArcGORNewArc->ARCGetNumeroA())
@@ -163,18 +170,17 @@ void PGraphOrient<TArc>::GORSupprimerSommet(PSommet<TArc>* PSommetGORSommet)
 		throw invalid_argument("Sommet d'arrivee non existant");
 	}
 
-	int iIterator;
 	vector<TArc*> vArcD = PSommetGORSommet->SOMGetArcD();
 	vector<TArc*> vArcA = PSommetGORSommet->SOMGetArcA();
 
-	for (iIterator = 0; iIterator < vArcD.size(); iIterator++)
+	for (TArc* pArc : vArcD)
 	{
-		GORSupprimerArc(vArcD[iIterator]);
+		GORSupprimerArc(pArc);
 	}
 
-	for (iIterator = 0; iIterator < vArcA.size(); iIterator++)
+	for (TArc* pArc : vArcA)
 	{
-		GORSupprimerArc(vArcA[iIterator]);
+		GORSupprimerArc(pArc);
 	}
 
 	auto aIterator = find(vGORPSommet.begin(), vGORPSommet.end(), PSommetGORSommet);

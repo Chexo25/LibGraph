@@ -35,17 +35,14 @@
     <ClInclude Include="PGraphOrient.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PAffichage.h">
+    <ClInclude Include="PCliqueMaxima.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="PCliqueMaxima.h">
+    <ClInclude Include="FonctionsExternes.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="PAffichage.th">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </None>
     <None Include="PGraph.th">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
@@ -56,6 +53,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
     <None Include="PCliqueMaxima.th">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="FonctionsExternes.th">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
   </ItemGroup>

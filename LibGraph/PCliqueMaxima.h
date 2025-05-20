@@ -11,7 +11,7 @@
  ************************************************************************************************
  * VERSION : 1.0.0
  * AUTEURS : Corentin BAILLE, Clément BOURDIER
- * DATE : 10/05/2025
+ * DATE : 20/05/2025
  ************************************************************************************************
  * INCLUSIONS EXTERNES :
  ************************************************************************************************/
@@ -61,6 +61,7 @@ public:
 	* Nécessite : Que le vecteur de sommet spécifié soit valide
 	* Sortie : Un booléen : true ou false
 	* Entraîne : Un booléen true ou false indiquant si le vector de sommets spécifié est une clique
+	*			 Met à jour l'attribut de la classe afin de lui donner la clique maxima
 ******************************************************************************************/
 
 	void CLIEnuCliqueMax(PGraph<TArc> CLIGraph, vector<PSommet<TArc>*> ListeSommet);
@@ -79,4 +80,5 @@ public:
 };
 
 #include "PCliqueMaxima.th"
+
 #endif

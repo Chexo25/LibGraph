@@ -104,3 +104,18 @@ void PSommet<TArc>::SOMSupprArcA(TArc* ptrTArcSOMArc)
 		throw invalid_argument("Arc non existant dans la liste d'arrivee !");
 	}
 }
+template <class TArc>
+bool PSommet<TArc>::SOMEstVoisinAvec(PSommet<TArc>* PSommetSOMSommet) const
+{
+	for (TArc* arc : vSOMArcD)
+	{
+		if (arc->ARCGetNumeroA() == PSommetSOMSommet->SOMGetNumero())
+			return true;
+	}
+	for (auto& arc : vSOMArcA)
+	{
+		if (arc->ARCGetNumeroD() == PSommetSOMSommet->SOMGetNumero())
+			return true;
+	}
+	return false;
+}

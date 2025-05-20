@@ -32,7 +32,7 @@ bool PClique_max<TArc>::CLIIsClique(vector<PSommet<TArc>*> CLIvSommets) {
                 }
             }
 
-            //Sinon, on regarde si s2 est connecté à s1 (car graphe non orienté)
+            //Sinon, on regarde si s2 est connecté à s1 (car graphe non orienté uniquement)
             if (!connected) {
                 for (TArc* arc : s2->SOMGetArcD()) {
                     if (arc->ARCGetNumeroA() == s1->SOMGetNumero()) {
@@ -61,46 +61,64 @@ void PClique_max<TArc>::CLIResetCliqueMax()
 }
 
 template<class TArc>
-void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> Graph, vector<PSommet<TArc>*> ListeSommet)
+void PClique_max<TArc>::CLIEnuCliqueMax(PGraph<TArc> CLIGraph, vector<PSommet<TArc>*> CLIListeSommet)
 {
-    vector<PSommet<TArc>*> vListeSommet = Graph.GORGetSommet();
+    vector<PSommet<TArc>*> vListeSommet = CLIGraph.GORGetSommet();
 
-    if (vListeSommet.size() == 0)
+    //Cas où il ne reste aucun sommet à test
+    if (vListeSommet.empty())
     {
-        if (ListeSommet.size() > stTailleMaxClique)
+        if (CLIListeSommet.size() > stTailleMaxClique)
         {
             CLIResetCliqueMax();
-            stTailleMaxClique = ListeSommet.size();
-            vvCliques_Max.push_back(ListeSommet);
+            stTailleMaxClique = CLIListeSommet.size();
+            vvCliques_Max.push_back(CLIListeSommet);
         }
-        else if (ListeSommet.size() == stTailleMaxClique)
+        else if (CLIListeSommet.size() == stTailleMaxClique)
         {
-            vvCliques_Max.push_back(ListeSommet);
+            vvCliques_Max.push_back(CLIListeSommet);
         }
         return;
     }
 
-    for (size_t stIterator = 0; stIterator < vListeSommet.size(); stIterator++)
+    for (size_t i = 0; i < vListeSommet.size(); ++i)
     {
-        try {
-            PSommet<TArc>* pSommet = vListeSommet[stIterator];
+        PSommet<TArc>* pSommet = vListeSommet[i];
 
-            PGraph<TArc> GraphCopy = Graph;
-
-            vector<PSommet<TArc>*> ListeAvecSommet = ListeSommet;
-            ListeAvecSommet.push_back(pSommet);
-
-            GraphCopy.GORSupprimerSommet(pSommet);
-
-            if (CLIIsClique(ListeAvecSommet))
+        //Booléen qui vérifie si ce sommet est compatible avec la clique candidate
+        bool compatible = true;
+        for (PSommet<TArc>* s : CLIListeSommet)
+        {
+            if (!s->SOMEstVoisinAvec(pSommet)) //Méthode implémentée dans PSommet
             {
-                CLIEnuCliqueMax(GraphCopy, ListeAvecSommet);
+                compatible = false;
+                break;
             }
+        }
 
-            CLIEnuCliqueMax(GraphCopy, ListeSommet);
-        }
-        catch (const exception&) {
+        if (!compatible)
             continue;
+
+        //On rajoute le sommet à la clique que l'on teste
+        vector<PSommet<TArc>*> newClique = CLIListeSommet;
+        newClique.push_back(pSommet);
+
+        //On vérifie si les voisins de pSommet ne sont pas aussi dans vListeSommet
+        vector<PSommet<TArc>*> newVListeSommet;
+        for (size_t j = i + 1; j < vListeSommet.size(); ++j)
+        {
+            if (pSommet->SOMEstVoisinAvec(vListeSommet[j]))
+                newVListeSommet.push_back(vListeSommet[j]);
         }
+
+        //On crée le nouveau graphe avec les sommets compatibles restants
+        PGraph<TArc> newGraph;
+        newGraph.GORSetvGORPSommet(newVListeSommet);
+
+        CLIEnuCliqueMax(newGraph, newClique);
     }
 }
+
+
+
+
