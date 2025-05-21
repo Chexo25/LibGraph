@@ -17,39 +17,6 @@ vector<vector<PSommet<TArc>*>> PClique_max<TArc>::CLIGetVvCliquesMax()
 }
 
 template<class TArc>
-bool PClique_max<TArc>::CLIIsClique(vector<PSommet<TArc>*> CLIvSommets) {
-    for (size_t i = 0; i < CLIvSommets.size(); i++) {
-        for (size_t j = i + 1; j < CLIvSommets.size(); j++) {
-            PSommet<TArc>* s1 = CLIvSommets[i];
-            PSommet<TArc>* s2 = CLIvSommets[j];
-            bool connected = false;
-
-            //On vérifie si s1 est connecté à s2
-            for (TArc* arc : s1->SOMGetArcD()) {
-                if (arc->ARCGetNumeroA() == s2->SOMGetNumero()) {
-                    connected = true;
-                    break;
-                }
-            }
-
-            //Sinon, on regarde si s2 est connecté à s1 (car graphe non orienté uniquement)
-            if (!connected) {
-                for (TArc* arc : s2->SOMGetArcD()) {
-                    if (arc->ARCGetNumeroA() == s1->SOMGetNumero()) {
-                        connected = true;
-                        break;
-                    }
-                }
-            }
-            if (!connected) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-template<class TArc>
 void PClique_max<TArc>::CLIResetCliqueMax()
 {
     stTailleMaxClique = 0;

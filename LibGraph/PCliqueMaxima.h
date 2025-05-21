@@ -43,18 +43,6 @@ public:
 	//METHODES
 
 /******************************************************************************************
-	 * CLIIsClique
-	 * --------------------------------------------------------------------------------------
-	 * Entrée : CLIvSommet, un vecteur de sommet 
-	 * Nécessite : Que le vecteur de sommet spécifié soit valide
-	 * Sortie : Un booléen : true ou false
-	 * Entraîne : Un booléen true ou false indiquant si le vector de sommets spécifié est une clique OU
-	 * (EXCEPTION) : Le vector passé en paramètre est vide
-******************************************************************************************/
-
-	bool CLIIsClique(vector<PSommet<TArc>*> CLIvSommet);
-
-/******************************************************************************************
 	* CLIEnuCliqueMax
 	* -------------------------------------------------------------------------------------
 	* Entrée : CLIGraph
